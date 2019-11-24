@@ -2,10 +2,10 @@
 
 /**
 *@file    init.c
-*@author
+*@author	Liu CX
 *@version 1.0
-*@date    2019.11.21
-*@brief   进行硬件初始化
+*@date    2019.11.24
+*@brief   进行硬件初始化,谁要是敢乱改我的程序我会记仇的，哼！
 **/
 
 
@@ -125,7 +125,7 @@ void GPIO_INIT(void)
 	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP; //推挽复用输出
 	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP; //上拉
 	GPIO_Init(GPIOA, &GPIO_InitStructure); //初始化PA2，PA3
-    //WDNMD
+	//WDNMD
 	GPIO_PinAFConfig(GPIOA, GPIO_PinSource2, GPIO_AF_USART2); //GPIOA2复用为USART2
 	GPIO_PinAFConfig(GPIOA, GPIO_PinSource3, GPIO_AF_USART2); //GPIOA3复用为USART2
 #endif
@@ -215,10 +215,111 @@ void GPIO_INIT(void)
 #endif
 
 
+#if USE_TIM_1 == 2
+	//************************TIM1_Encoder************************//
+	//TIM1_CH1: PE9
+	//TIM1_CH2: PE11
 
 
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOE, ENABLE); 	//使能GPIOE时钟	
 
+	GPIO_PinAFConfig(GPIOE, GPIO_PinSource9, GPIO_AF_TIM1); //GPIOE9复用为定时器1
+	GPIO_PinAFConfig(GPIOE, GPIO_PinSource11, GPIO_AF_TIM1); //GPIOE11复用为定时器1
+
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_9 | GPIO_Pin_11;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;        //复用功能
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;	//速度100MHz
+	GPIO_InitStructure.GPIO_OType = GPIO_OType_OD;
+	GPIO_Init(GPIOE, &GPIO_InitStructure);
+
+#endif
+
+#if USE_TIM_2 == 2
+	//************************TIM2_Encoder************************//
+	//TIM2_CH1: PA5
+	//TIM2_CH2: PB3
+
+
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE); 	//使能GPIOA时钟	
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB, ENABLE); 	//使能GPIOB时钟	
+
+	GPIO_PinAFConfig(GPIOA, GPIO_PinSource5, GPIO_AF_TIM2); //GPIOA5复用为定时器2
+	GPIO_PinAFConfig(GPIOB, GPIO_PinSource3, GPIO_AF_TIM2); //GPIOB3复用为定时器2
+
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_5;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;        //复用功能
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;	//速度100MHz
+	GPIO_InitStructure.GPIO_OType = GPIO_OType_OD;
+	GPIO_Init(GPIOA, &GPIO_InitStructure);
+
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_3;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;        //复用功能
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;	//速度100MHz
+	GPIO_InitStructure.GPIO_OType = GPIO_OType_OD;
+	GPIO_Init(GPIOB, &GPIO_InitStructure);
+
+#endif
+#if USE_TIM_3 == 2
+	//************************TIM3_Encoder************************//
+	//TIM3_CH1: PA6
+	//TIM3_CH2: PA7
+
+
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE); 	//使能GPIOA时钟	
+
+	GPIO_PinAFConfig(GPIOA, GPIO_PinSource6, GPIO_AF_TIM3); //GPIOA6复用为定时器3
+	GPIO_PinAFConfig(GPIOA, GPIO_PinSource7, GPIO_AF_TIM3); //GPIOA7复用为定时器3
+
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_6 | GPIO_Pin_7;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;        //复用功能
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;	//速度100MHz
+	GPIO_InitStructure.GPIO_OType = GPIO_OType_OD;
+	GPIO_Init(GPIOA, &GPIO_InitStructure);
+
+#endif
+
+#if USE_TIM_4 == 2
+	//************************TIM4_PWM************************//
+	//TIM4_CH2: PD13	OP1
+	//TIM4_CH3: PD14	OP2
+	//TIM4_CH4: PD15	OPPWM
+
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOD, ENABLE);/*开启相关的GPIO外设时钟*/
+
+	GPIO_PinAFConfig(GPIOD, GPIO_PinSource13, GPIO_AF_TIM4)/* 定时器通道引脚复用 */;
+	GPIO_PinAFConfig(GPIOD, GPIO_PinSource14, GPIO_AF_TIM4)/* 定时器通道引脚复用 */;
+	GPIO_PinAFConfig(GPIOD, GPIO_PinSource15, GPIO_AF_TIM4)/* 定时器通道引脚复用 */;
+
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_13 | GPIO_Pin_14 | GPIO_Pin_15;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
+	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;
+	GPIO_Init(GPIOD, &GPIO_InitStructure);
+#endif
+
+#if USE_TIM_5 == 2
+	//************************TIM5_Encoder************************//
+	//TIM5_CH1: PA0
+	//TIM5_CH2: PA1	
+
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE); 	//使能GPIOA时钟	
+
+	GPIO_PinAFConfig(GPIOA, GPIO_PinSource0, GPIO_AF_TIM5); //GPIOA0复用为定时器5
+	GPIO_PinAFConfig(GPIOA, GPIO_PinSource1, GPIO_AF_TIM5); //GPIOA1复用为定时器5
+
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0 | GPIO_Pin_1;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;        //复用功能
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;	//速度100MHz
+	GPIO_InitStructure.GPIO_OType = GPIO_OType_OD;
+	GPIO_Init(GPIOA, &GPIO_InitStructure);
+
+#endif
 }
+
+
+
+
 
 /**
  *@function Periph_Init
@@ -230,7 +331,15 @@ void Periph_Init(void)
 {
 	CAN_InitTypeDef        	CAN_InitStructure;
 	CAN_FilterInitTypeDef  	CAN_FilterInitStructure;
-	USART_InitTypeDef USART_InitStructure;
+	USART_InitTypeDef 		USART_InitStructure;
+	NVIC_InitTypeDef  		NVIC_InitStructure;
+	TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
+	TIM_ICInitTypeDef  TIM_ICInitStructure;
+	TIM_OCInitTypeDef  TIM_OCInitStructure;
+
+	//************************delay&NVIC************************//
+	delay_init(168);
+	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);//设置系统中断优先级分组2
 
 #if USE_CAN_1
 	//************************CAN1_INIT************************//
@@ -248,24 +357,36 @@ void Periph_Init(void)
 	CAN_InitStructure.CAN_RFLM = DISABLE;		//报文不锁定,新的覆盖旧的  
 	CAN_InitStructure.CAN_TXFP = DISABLE;		//优先级由报文标识符决定 
 	CAN_InitStructure.CAN_Mode = CAN_Mode_Normal;	 //模式设置为普通模式
-	CAN_InitStructure.CAN_SJW = CAN_SJW_1tq;			//重新同步跳跃宽度(Tsjw)为tsjw+1个时间单位 CAN_SJW_1tq~CAN_SJW_4tq
-	CAN_InitStructure.CAN_BS1 = CAN_BS1_9tq; 			//Tbs1范围CAN_BS1_1tq ~CAN_BS1_16tq
-	CAN_InitStructure.CAN_BS2 = CAN_BS2_4tq;			//Tbs2范围CAN_BS2_1tq ~	CAN_BS2_8tq
-	CAN_InitStructure.CAN_Prescaler = 3;  	//分频系数(Fdiv)为brp+1	
+	CAN_InitStructure.CAN_SJW = CAN1_SJW;			//重新同步跳跃宽度(Tsjw)为tsjw+1个时间单位 CAN_SJW_1tq~CAN_SJW_4tq
+	CAN_InitStructure.CAN_BS1 = CAN1_BS1; 			//Tbs1范围CAN_BS1_1tq ~CAN_BS1_16tq
+	CAN_InitStructure.CAN_BS2 = CAN1_BS2;			//Tbs2范围CAN_BS2_1tq ~	CAN_BS2_8tq
+	CAN_InitStructure.CAN_Prescaler = CAN1_Prescaler;  	//分频系数(Fdiv)为brp+1	
 	CAN_Init(CAN1, &CAN_InitStructure);   		//初始化CAN1 
 
 	//配置过滤器
-	CAN_FilterInitStructure.CAN_FilterNumber = 0;	  					//过滤器0
+	CAN_FilterInitStructure.CAN_FilterNumber = CAN1_RX_FilterNum;	  					//过滤器0
 	CAN_FilterInitStructure.CAN_FilterMode = CAN_FilterMode_IdMask;
 	CAN_FilterInitStructure.CAN_FilterScale = CAN_FilterScale_32bit;	//32位 
 	CAN_FilterInitStructure.CAN_FilterIdHigh = 0x0000;					//32位ID
 	CAN_FilterInitStructure.CAN_FilterIdLow = 0x0000;				//标识符和掩码都需要左移三位，由寄存器分配决定
 	CAN_FilterInitStructure.CAN_FilterMaskIdHigh = 0x0000;					//32位MASK
 	CAN_FilterInitStructure.CAN_FilterMaskIdLow = 0x0000;				//标识符和掩码都需要左移三位，由寄存器分配决定
-	CAN_FilterInitStructure.CAN_FilterFIFOAssignment = CAN_Filter_FIFO0;			//过滤器0关联到FIFO0
+	CAN_FilterInitStructure.CAN_FilterFIFOAssignment = CAN1_FIFO;			//过滤器0关联到FIFO0
 	CAN_FilterInitStructure.CAN_FilterActivation = ENABLE; 					//激活过滤器0
 	CAN_FilterInit(&CAN_FilterInitStructure);
-#endif
+
+#if CAN1_RX_INT_ENABLE
+
+	CAN_ITConfig(CAN1, CAN1_ReceiveInt, ENABLE);//FIFO0消息挂号中断允许.		    
+
+	NVIC_InitStructure.NVIC_IRQChannel = CAN1_RX_IRQ;
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = CAN1_RX_IRQPrePri;     // 主优先级为1
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority = CAN1_RX_IRQSubPri;            // 次优先级为0
+	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+	NVIC_Init(&NVIC_InitStructure);
+#endif	//#if CAN1_RX_INT_ENABLE
+
+#endif	//#if USE_CAN_1
 
 #if USE_CAN_2
 	//************************CAN2_INIT************************//
@@ -283,25 +404,43 @@ void Periph_Init(void)
 	CAN_InitStructure.CAN_RFLM = DISABLE;		//报文不锁定,新的覆盖旧的  
 	CAN_InitStructure.CAN_TXFP = DISABLE;		//优先级由报文标识符决定 
 	CAN_InitStructure.CAN_Mode = CAN_Mode_Normal;	 //模式设置为普通模式
-	CAN_InitStructure.CAN_SJW = CAN_SJW_1tq;			//重新同步跳跃宽度(Tsjw)为tsjw+1个时间单位 CAN_SJW_1tq~CAN_SJW_4tq
-	CAN_InitStructure.CAN_BS1 = CAN_BS1_9tq; 			//Tbs1范围CAN_BS1_1tq ~CAN_BS1_16tq
-	CAN_InitStructure.CAN_BS2 = CAN_BS2_4tq;			//Tbs2范围CAN_BS2_1tq ~	CAN_BS2_8tq
-	CAN_InitStructure.CAN_Prescaler = 3;  	//分频系数(Fdiv)为brp+1	
+	CAN_InitStructure.CAN_SJW = CAN2_SJW;			//重新同步跳跃宽度(Tsjw)为tsjw+1个时间单位 CAN_SJW_1tq~CAN_SJW_4tq
+	CAN_InitStructure.CAN_BS1 = CAN2_BS1; 			//Tbs1范围CAN_BS1_1tq ~CAN_BS1_16tq
+	CAN_InitStructure.CAN_BS2 = CAN2_BS2;			//Tbs2范围CAN_BS2_1tq ~	CAN_BS2_8tq
+	CAN_InitStructure.CAN_Prescaler = CAN2_Prescaler;  	//分频系数(Fdiv)为brp+1	
 	CAN_Init(CAN2, &CAN_InitStructure);   		//初始化CAN2 
 
 	//配置过滤器
-	CAN_FilterInitStructure.CAN_FilterNumber = 15;	  					//过滤器15,can2的过滤器必须在14以上
+	CAN_FilterInitStructure.CAN_FilterNumber = CAN2_RX_FilterNum;	  					//过滤器15,can2的过滤器必须在14以上
 	CAN_FilterInitStructure.CAN_FilterMode = CAN_FilterMode_IdMask;
 	CAN_FilterInitStructure.CAN_FilterScale = CAN_FilterScale_32bit;	//32位 
 	CAN_FilterInitStructure.CAN_FilterIdHigh = 0x0000;					//32位ID
 	CAN_FilterInitStructure.CAN_FilterIdLow = 0x0000;
 	CAN_FilterInitStructure.CAN_FilterMaskIdHigh = 0x0000;					//32位MASK
 	CAN_FilterInitStructure.CAN_FilterMaskIdLow = 0x0000;
-	CAN_FilterInitStructure.CAN_FilterFIFOAssignment = CAN_Filter_FIFO1;			//过滤器1关联到FIFO1
+	CAN_FilterInitStructure.CAN_FilterFIFOAssignment = CAN2_FIFO;			//过滤器1关联到FIFO1
 	CAN_FilterInitStructure.CAN_FilterActivation = ENABLE; 					//激活过滤器1
 	CAN_FilterInit(&CAN_FilterInitStructure);
-#endif
 
+#if CAN2_RX_INT_ENABLE
+
+	CAN_ITConfig(CAN2, CAN2_ReceiveInt, ENABLE);//FIFO0消息挂号中断允许.		    
+
+	NVIC_InitStructure.NVIC_IRQChannel = CAN2_RX_IRQ;  //对于FIFO1，要把RX0改为RX1，CAN1同理
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = CAN2_RX_IRQPrePri;     // 主优先级为1
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority = CAN2_RX_IRQSubPri;            // 次优先级为0
+	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+	NVIC_Init(&NVIC_InitStructure);
+#endif	//#if CAN2_RX_INT_ENABLE
+
+#endif	//#if USE_CAN_2
+
+#if USE_USART_1
+	//************************USART1_INIT************************//
+	//USART1_TX: PA9
+	//USART1_RX: PA10
+	uart_init(115200);
+#endif
 
 #if USE_USART_2
 	//************************USART2_INIT************************//
@@ -316,7 +455,19 @@ void Periph_Init(void)
 	USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;	//收发模式;
 	USART_Init(USART2, &USART_InitStructure); //初始化串口
 	USART_Cmd(USART2, ENABLE);  //使能串口
-#endif
+
+#if USART2_RX_ENABLE
+	USART_ITConfig(USART2, USART_IT_RXNE, ENABLE);//开启相关中断
+
+	//Usart2 NVIC 配置
+	NVIC_InitStructure.NVIC_IRQChannel = USART2_IRQn;//串口1中断通道
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = USART2_RX_IRQPrePri;//抢占优先级3
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority = USART2_RX_IRQSubPri;		//子优先级3
+	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;			//IRQ通道使能
+	NVIC_Init(&NVIC_InitStructure);	//根据指定的参数初始化VIC寄存器、
+#endif	//#if USART2_RX_ENABLE
+
+#endif	//#if USE_USART_2
 
 #if USE_USART_3
 	//************************USART3_INIT************************//
@@ -330,7 +481,19 @@ void Periph_Init(void)
 	USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;//无硬件数据流控制
 	USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;	//收发模式
 	USART_Init(USART3, &USART_InitStructure); //初始化串口3
-	USART_Cmd(USART3, ENABLE);                    //使能串口
+	USART_Cmd(USART3, ENABLE); //使能串口
+
+#if USART3_RX_ENABLE
+	USART_ITConfig(USART3, USART_IT_RXNE, ENABLE);//开启相关中断
+
+	//Usart2 NVIC 配置
+	NVIC_InitStructure.NVIC_IRQChannel = USART3_IRQn;//串口1中断通道
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = USART3_RX_IRQPrePri;//抢占优先级3
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority = USART3_RX_IRQSubPri;		//子优先级3
+	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;			//IRQ通道使能
+	NVIC_Init(&NVIC_InitStructure);	//根据指定的参数初始化VIC寄存器、
+#endif	//#if USART3_RX_ENABLE
+
 #endif
 
 #if USE_UART_4
@@ -346,6 +509,18 @@ void Periph_Init(void)
 	USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;	//收发模式
 	USART_Init(UART4, &USART_InitStructure); //初始化串口3
 	USART_Cmd(UART4, ENABLE);  	//使能串口
+
+#if UART4_RX_ENABLE
+	USART_ITConfig(UART4, USART_IT_RXNE, ENABLE);//开启相关中断
+
+	//UART4 NVIC 配置
+	NVIC_InitStructure.NVIC_IRQChannel = UART4_IRQn;//串口1中断通道
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = UART4_RX_IRQPrePri;//抢占优先级3
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority = UART4_RX_IRQSubPri;		//子优先级3
+	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;			//IRQ通道使能
+	NVIC_Init(&NVIC_InitStructure);	//根据指定的参数初始化VIC寄存器、
+#endif	//#if UART4_RX_ENABLE
+
 #endif
 
 #if USE_UART_5
@@ -361,6 +536,18 @@ void Periph_Init(void)
 	USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;	//收发模式
 	USART_ITConfig(UART5, USART_IT_RXNE, ENABLE);//开启中断
 	USART_Cmd(UART5, ENABLE);
+
+#if UART5_RX_ENABLE
+	USART_ITConfig(UART5, USART_IT_RXNE, ENABLE);//开启相关中断
+
+	//UART5 NVIC 配置
+	NVIC_InitStructure.NVIC_IRQChannel = UART5_IRQn;//串口1中断通道
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = UART5_RX_IRQPrePri;//抢占优先级3
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority = UART5_RX_IRQSubPri;		//子优先级3
+	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;			//IRQ通道使能
+	NVIC_Init(&NVIC_InitStructure);	//根据指定的参数初始化VIC寄存器、
+#endif	//#if UART5_RX_ENABLE
+
 #endif
 
 #if USE_USART_6
@@ -376,7 +563,331 @@ void Periph_Init(void)
 	USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;	//收发模式
 	USART_Init(USART6, &USART_InitStructure); //初始化串口3
 	USART_Cmd(USART6, ENABLE);                   //使能串口
+
+#if USART6_RX_ENABLE
+	USART_ITConfig(USART6, USART_IT_RXNE, ENABLE);//开启相关中断
+
+	//USART6 NVIC 配置
+	NVIC_InitStructure.NVIC_IRQChannel = USART6_IRQn;//串口1中断通道
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = USART6_RX_IRQPrePri;//抢占优先级3
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority = USART6_RX_IRQSubPri;		//子优先级3
+	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;			//IRQ通道使能
+	NVIC_Init(&NVIC_InitStructure);	//根据指定的参数初始化VIC寄存器
+#endif	//#if USART6_RX_ENABLE
+
 #endif
+
+#if USE_TIM_1 == 2
+	//************************TIM1_Encoder************************//
+	//TIM1_CH1: PE9
+	//TIM1_CH2: PE11
+
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_TIM1, ENABLE);  	//TIM1时钟使能  
+	TIM_TimeBaseStructInit(&TIM_TimeBaseStructure);
+	TIM_TimeBaseStructure.TIM_Prescaler = 0x0; // 预分频器 
+	TIM_TimeBaseStructure.TIM_Period = (u16)(65535); //设定计数器自动重装值
+	TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1;//选择时钟分频：不分频
+	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;////TIM向上计数  
+	TIM_TimeBaseInit(TIM1, &TIM_TimeBaseStructure);
+	TIM_EncoderInterfaceConfig(TIM1, TIM_EncoderMode_TI12, TIM_ICPolarity_Rising, TIM_ICPolarity_Rising);//使用编码器模式3
+	TIM_ICStructInit(&TIM_ICInitStructure);
+	TIM_ICInitStructure.TIM_ICFilter = 10;
+	TIM_ICInit(TIM1, &TIM_ICInitStructure);
+	TIM_ClearFlag(TIM1, TIM_FLAG_Update);//清除TIM的更新标志位
+	TIM_ITConfig(TIM1, TIM_IT_Update, DISABLE);	//禁用溢出中断
+	//Reset counter
+	TIM_SetCounter(TIM1, 0x00);
+	TIM_Cmd(TIM1, ENABLE);
+#endif
+#if USE_TIM_1 == 1
+	//************************TIM1_Timer************************//
+	// 高级控制定时器时钟源TIMxCLK = HCLK=168MHz 
+	// 设定定时器频率为=TIMxCLK/(TIM_Prescaler+1)=10000Hz
+
+	NVIC_InitStructure.NVIC_IRQChannel = TIM1_UP_TIM10_IRQn;
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = TIM1_IRQPrePri;
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority = TIM1_IRQSubPri;
+	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+	NVIC_Init(&NVIC_InitStructure);
+
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_TIM1, ENABLE);
+
+	TIM_TimeBaseStructure.TIM_Period = TIM1_Period;	//当定时器从0计数到4999，即为5000次，为一个定时周期
+	TIM_TimeBaseStructure.TIM_Prescaler = TIM1_Prescaler;
+	TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1;	// 采样时钟分频
+	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;	// 计数方式
+	TIM_TimeBaseStructure.TIM_RepetitionCounter = TIM1_RepetitionCounter;	// 重复计数器:重复0次，即计数两次才生成一个中断
+	TIM_TimeBaseInit(TIM1, &TIM_TimeBaseStructure);
+
+	TIM_ClearFlag(TIM1, TIM_FLAG_Update);// 清除定时器更新中断标志位
+	TIM_ITConfig(TIM1, TIM_IT_Update, ENABLE);// 开启定时器更新中断
+	TIM_Cmd(TIM1, ENABLE);	// 使能定时器
+
+#endif
+
+#if USE_TIM_2 == 2
+	//************************TIM2_Encoder************************//
+	//TIM2_CH1: PA5
+	//TIM2_CH2: PB3
+
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM2, ENABLE);  	//TIM2时钟使能 
+	TIM_TimeBaseStructInit(&TIM_TimeBaseStructure);
+	TIM_TimeBaseStructure.TIM_Prescaler = 0x0; // 预分频器 
+	TIM_TimeBaseStructure.TIM_Period = (u16)(65535); //设定计数器自动重装值
+	TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1;//选择时钟分频：不分频
+	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;////TIM向上计数  
+	TIM_TimeBaseInit(TIM2, &TIM_TimeBaseStructure);
+	TIM_EncoderInterfaceConfig(TIM2, TIM_EncoderMode_TI12, TIM_ICPolarity_Rising, TIM_ICPolarity_Rising);//使用编码器模式3
+	TIM_ICStructInit(&TIM_ICInitStructure);
+	TIM_ICInitStructure.TIM_ICFilter = 10;
+	TIM_ICInit(TIM2, &TIM_ICInitStructure);
+	TIM_ClearFlag(TIM2, TIM_FLAG_Update);//清除TIM的更新标志位
+	TIM_ITConfig(TIM2, TIM_IT_Update, DISABLE);	//禁用溢出中断
+	//Reset counter
+	TIM_SetCounter(TIM2, 0x00);
+	TIM_Cmd(TIM2, ENABLE);
+#endif
+#if USE_TIM_2 == 1	
+	//************************TIM2_Timer************************//
+	// 通用控制定时器时钟源TIMxCLK = HCLK/2=84MHz 
+
+	NVIC_InitStructure.NVIC_IRQChannel = TIM2_IRQn;// 设置中断来源
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = TIM2_IRQPrePri;	// 设置抢占优先级
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority = TIM2_IRQSubPri;	// 设置子优先级
+	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+	NVIC_Init(&NVIC_InitStructure);
+
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM2, ENABLE);
+
+	TIM_TimeBaseStructure.TIM_Period = TIM2_Period;
+	TIM_TimeBaseStructure.TIM_Prescaler = TIM2_Prescaler;
+	TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1;
+	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;	// 计数方式
+	TIM_TimeBaseInit(TIM2, &TIM_TimeBaseStructure);	// 初始化定时器TIMx, x[1,8]
+
+	TIM_ClearFlag(TIM2, TIM_FLAG_Update);// 清除定时器更新中断标志位
+	TIM_ITConfig(TIM2, TIM_IT_Update, ENABLE);// 开启定时器更新中断
+	TIM_Cmd(TIM2, ENABLE);	// 使能定时器
+#endif
+
+#if USE_TIM_3 == 2
+	//************************TIM3_Encoder************************//
+	//TIM3_CH1: PA6
+	//TIM3_CH2: PA7
+
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM3, ENABLE);  	//TIM3时钟使能 
+	TIM_TimeBaseStructInit(&TIM_TimeBaseStructure);
+	TIM_TimeBaseStructure.TIM_Prescaler = 0x0; // 预分频器 
+	TIM_TimeBaseStructure.TIM_Period = (u16)(65535); //设定计数器自动重装值
+	TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1;//选择时钟分频：不分频
+	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;////TIM向上计数  
+	TIM_TimeBaseInit(TIM3, &TIM_TimeBaseStructure);
+	TIM_EncoderInterfaceConfig(TIM3, TIM_EncoderMode_TI12, TIM_ICPolarity_Rising, TIM_ICPolarity_Rising);//使用编码器模式3
+	TIM_ICStructInit(&TIM_ICInitStructure);
+	TIM_ICInitStructure.TIM_ICFilter = 10;
+	TIM_ICInit(TIM3, &TIM_ICInitStructure);
+	TIM_ClearFlag(TIM3, TIM_FLAG_Update);//清除TIM的更新标志位
+	TIM_ITConfig(TIM3, TIM_IT_Update, DISABLE);	//禁用溢出中断
+	//Reset counter
+	TIM_SetCounter(TIM3, 0x00);
+	TIM_Cmd(TIM3, ENABLE);
+#endif
+#if USE_TIM_3 == 1	
+	//************************TIM3_Timer************************//
+	// 通用控制定时器时钟源TIMxCLK = HCLK/2=84MHz 
+
+	NVIC_InitStructure.NVIC_IRQChannel = TIM3_IRQn;// 设置中断来源
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = TIM3_IRQPrePri;	// 设置抢占优先级
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority = TIM3_IRQSubPri;	// 设置子优先级
+	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+	NVIC_Init(&NVIC_InitStructure);
+
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM3, ENABLE);
+
+	TIM_TimeBaseStructure.TIM_Period = TIM3_Period;
+	TIM_TimeBaseStructure.TIM_Prescaler = TIM3_Prescaler;
+	TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1;
+	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;	// 计数方式
+	TIM_TimeBaseInit(TIM3, &TIM_TimeBaseStructure);	// 初始化定时器TIMx, x[1,8]
+
+	TIM_ClearFlag(TIM3, TIM_FLAG_Update);// 清除定时器更新中断标志位
+	TIM_ITConfig(TIM3, TIM_IT_Update, ENABLE);// 开启定时器更新中断
+	TIM_Cmd(TIM3, ENABLE);	// 使能定时器
+#endif
+
+#if USE_TIM_4 == 2
+	//************************TIM4_PWM************************//
+	//TIM4_CH2: PD13	OP1
+	//TIM4_CH3: PD14	OP2
+	//TIM4_CH4: PD15	OPPWM
+	//TIM4_CH1未引出
+	// 通用控制定时器时钟源TIMxCLK = HCLK/2=84MHz 
+
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM4, ENABLE);
+
+
+	TIM_TimeBaseStructure.TIM_Period = TIM4_Period;
+	TIM_TimeBaseStructure.TIM_Prescaler = TIM4_Prescaler;
+	TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1;
+	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
+	TIM_TimeBaseInit(TIM4, &TIM_TimeBaseStructure);
+
+	TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_PWM1;	    //配置为PWM模式1
+	TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
+	TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;  	  //当定时器计数值小于CCR1_Val时为高电平
+
+	TIM_OCInitStructure.TIM_Pulse = 0;
+	TIM_OC2Init(TIM4, &TIM_OCInitStructure);	 //使能通道2
+	TIM_OC2PreloadConfig(TIM4, TIM_OCPreload_Enable);	  /*使能通道2重载*/
+	TIM_OCInitStructure.TIM_Pulse = 0;
+	TIM_OC3Init(TIM4, &TIM_OCInitStructure);	 //使能通道3
+	TIM_OC3PreloadConfig(TIM4, TIM_OCPreload_Enable);	  /*使能通道3重载*/
+	TIM_OCInitStructure.TIM_Pulse = 0;
+	TIM_OC4Init(TIM4, &TIM_OCInitStructure);	 //使能通道4
+	TIM_OC4PreloadConfig(TIM4, TIM_OCPreload_Enable);	  /*使能通道4重载*/
+
+	TIM_Cmd(TIM4, ENABLE);	// 使能定时器	
+
+#endif
+
+#if USE_TIM_4 == 1	
+	//************************TIM4_Timer************************//
+	// 通用控制定时器时钟源TIMxCLK = HCLK/2=84MHz 
+
+	NVIC_InitStructure.NVIC_IRQChannel = TIM4_IRQn;// 设置中断来源
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = TIM4_IRQPrePri;	// 设置抢占优先级
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority = TIM4_IRQSubPri;	// 设置子优先级
+	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+	NVIC_Init(&NVIC_InitStructure);
+
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM4, ENABLE);
+
+	TIM_TimeBaseStructure.TIM_Period = TIM4_Period;
+	TIM_TimeBaseStructure.TIM_Prescaler = TIM4_Prescaler;
+	TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1;
+	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;	// 计数方式
+	TIM_TimeBaseInit(TIM4, &TIM_TimeBaseStructure);	// 初始化定时器TIMx, x[1,8]
+
+	TIM_ClearFlag(TIM4, TIM_FLAG_Update);// 清除定时器更新中断标志位
+	TIM_ITConfig(TIM4, TIM_IT_Update, ENABLE);// 开启定时器更新中断
+	TIM_Cmd(TIM4, ENABLE);	// 使能定时器
+#endif
+#if USE_TIM_5 == 2
+	//************************TIM5_Encoder************************//
+	//TIM5_CH1: PA0
+	//TIM5_CH2: PA1	
+
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM5, ENABLE);  	//TIM5时钟使能 
+	TIM_TimeBaseStructInit(&TIM_TimeBaseStructure);
+	TIM_TimeBaseStructure.TIM_Prescaler = 0x0; // 预分频器 
+	TIM_TimeBaseStructure.TIM_Period = (u16)(65535); //设定计数器自动重装值
+	TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1;//选择时钟分频：不分频
+	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;////TIM向上计数  
+	TIM_TimeBaseInit(TIM5, &TIM_TimeBaseStructure);
+	TIM_EncoderInterfaceConfig(TIM5, TIM_EncoderMode_TI12, TIM_ICPolarity_Rising, TIM_ICPolarity_Rising);//使用编码器模式3
+	TIM_ICStructInit(&TIM_ICInitStructure);
+	TIM_ICInitStructure.TIM_ICFilter = 10;
+	TIM_ICInit(TIM5, &TIM_ICInitStructure);
+	TIM_ClearFlag(TIM5, TIM_FLAG_Update);//清除TIM的更新标志位
+	TIM_ITConfig(TIM5, TIM_IT_Update, DISABLE);	//禁用溢出中断
+	//Reset counter
+	TIM_SetCounter(TIM5, 0x00);
+	TIM_Cmd(TIM5, ENABLE);
+#endif
+
+#if USE_TIM_5 == 1	
+	//************************TIM5_Timer************************//
+	// 通用控制定时器时钟源TIMxCLK = HCLK/2=84MHz 
+
+	NVIC_InitStructure.NVIC_IRQChannel = TIM5_IRQn;// 设置中断来源
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = TIM5_IRQPrePri;	// 设置抢占优先级
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority = TIM5_IRQSubPri;	// 设置子优先级
+	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+	NVIC_Init(&NVIC_InitStructure);
+
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM5, ENABLE);
+
+	TIM_TimeBaseStructure.TIM_Period = TIM5_Period;
+	TIM_TimeBaseStructure.TIM_Prescaler = TIM5_Prescaler;
+	TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1;
+	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;	// 计数方式
+	TIM_TimeBaseInit(TIM5, &TIM_TimeBaseStructure);	// 初始化定时器TIMx, x[1,8]
+
+	TIM_ClearFlag(TIM5, TIM_FLAG_Update);// 清除定时器更新中断标志位
+	TIM_ITConfig(TIM5, TIM_IT_Update, ENABLE);// 开启定时器更新中断
+	TIM_Cmd(TIM5, ENABLE);	// 使能定时器
+#endif
+
+#if USE_TIM_6 == 1
+	//************************TIM6_Timer************************//
+	// 基本定时器时钟源TIMxCLK = HCLK/2=84MHz 
+
+	NVIC_InitStructure.NVIC_IRQChannel = TIM6_DAC_IRQn;// 设置中断来源
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = TIM6_IRQPrePri;	// 设置抢占优先级
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority = TIM6_IRQSubPri;// 设置子优先级
+	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+	NVIC_Init(&NVIC_InitStructure);
+
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM6, ENABLE);	// 开启TIMx_CLK,x[6,7] 
+
+	TIM_TimeBaseStructure.TIM_Period = TIM6_Period;//当定时器从0计数到4999，即为5000次，为一个定时周期
+	TIM_TimeBaseStructure.TIM_Prescaler = TIM6_Prescaler;
+	TIM_TimeBaseInit(TIM6, &TIM_TimeBaseStructure);// 初始化定时器TIMx, x[2,3,4,5]
+	TIM_ClearFlag(TIM6, TIM_FLAG_Update);// 清除定时器更新中断标志位
+	TIM_ITConfig(TIM6, TIM_IT_Update, ENABLE);// 开启定时器更新中断
+	TIM_Cmd(TIM6, ENABLE);// 使能定时器
+#endif
+
+#if USE_TIM_7 == 1
+	//************************TIM7_Timer************************//
+	// 基本定时器时钟源TIMxCLK = HCLK/2=84MHz 
+
+	NVIC_InitStructure.NVIC_IRQChannel = TIM7_IRQn;// 设置中断来源
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = TIM7_IRQPrePri;	// 设置抢占优先级
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority = TIM7_IRQSubPri;// 设置子优先级
+	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+	NVIC_Init(&NVIC_InitStructure);
+
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM7, ENABLE);	// 开启TIMx_CLK,x[6,7] 
+
+
+	TIM_TimeBaseStructure.TIM_Period = TIM7_Period;//当定时器从0计数到4999，即为5000次，为一个定时周期
+	TIM_TimeBaseStructure.TIM_Prescaler = TIM7_Prescaler;
+	TIM_TimeBaseInit(TIM7, &TIM_TimeBaseStructure);// 初始化定时器TIMx, x[2,3,4,5]
+	TIM_ClearFlag(TIM7, TIM_FLAG_Update);// 清除定时器更新中断标志位
+	TIM_ITConfig(TIM7, TIM_IT_Update, ENABLE);// 开启定时器更新中断
+	TIM_Cmd(TIM7, ENABLE);// 使能定时器
+#endif
+
+#if USE_TIM_8 == 1
+	//************************TIM8_Timer************************//
+	// 高级控制定时器时钟源TIMxCLK = HCLK=168MHz 
+	// 设定定时器频率为=TIMxCLK/(TIM_Prescaler+1)=10000Hz
+
+	NVIC_InitStructure.NVIC_IRQChannel = TIM8_UP_TIM13_IRQn;
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = TIM8_IRQPrePri;
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority = TIM8_IRQSubPri;
+	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+	NVIC_Init(&NVIC_InitStructure);
+
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_TIM8, ENABLE);
+
+	TIM_TimeBaseStructure.TIM_Period = TIM8_Period;	//当定时器从0计数到4999，即为5000次，为一个定时周期
+	TIM_TimeBaseStructure.TIM_Prescaler = TIM8_Prescaler;
+	TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1;	// 采样时钟分频
+	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;	// 计数方式
+	TIM_TimeBaseStructure.TIM_RepetitionCounter = TIM8_RepetitionCounter;	// 重复计数器:重复0次，即计数两次才生成一个中断
+	TIM_TimeBaseInit(TIM8, &TIM_TimeBaseStructure);
+
+	TIM_ClearFlag(TIM8, TIM_FLAG_Update);// 清除定时器更新中断标志位
+	TIM_ITConfig(TIM8, TIM_IT_Update, ENABLE);// 开启定时器更新中断
+	TIM_Cmd(TIM8, ENABLE);	// 使能定时器
+
+#endif
+
+
+
+
 
 
 
