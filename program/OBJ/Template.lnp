@@ -45,6 +45,7 @@
 "..\obj\interrupt.o"
 "..\obj\protocol.o"
 "..\obj\sensor.o"
+"..\obj\gyro.o"
 "..\obj\actuator_control.o"
 "..\obj\basial_move.o"
 "..\obj\mission.o"

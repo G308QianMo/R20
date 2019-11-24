@@ -4,7 +4,7 @@
 ..\obj\init.o: ..\SYSTEM\sys\sys.h
 ..\obj\init.o: ..\USER\stm32f4xx.h
 ..\obj\init.o: ..\CORE\core_cm4.h
-..\obj\init.o: E:\ARM\ARMCC\Bin\..\include\stdint.h
+..\obj\init.o: E:\MDK5\ARM\ARMCC\Bin\..\include\stdint.h
 ..\obj\init.o: ..\CORE\core_cmInstr.h
 ..\obj\init.o: ..\CORE\core_cmFunc.h
 ..\obj\init.o: ..\CORE\core_cm4_simd.h
@@ -38,10 +38,16 @@
 ..\obj\init.o: ..\FWLIB\inc\stm32f4xx_dcmi.h
 ..\obj\init.o: ..\FWLIB\inc\stm32f4xx_fsmc.h
 ..\obj\init.o: ..\SYSTEM\usart\usart.h
-..\obj\init.o: E:\ARM\ARMCC\Bin\..\include\stdio.h
+..\obj\init.o: E:\MDK5\ARM\ARMCC\Bin\..\include\stdio.h
 ..\obj\init.o: ..\HEADER\init.h
 ..\obj\init.o: ..\HEADER\actuator_control.h
 ..\obj\init.o: ..\HEADER\basial_move.h
 ..\obj\init.o: ..\HEADER\protocol.h
 ..\obj\init.o: ..\HEADER\sensor.h
 ..\obj\init.o: ..\HEADER\interrupt.h
+..\obj\init.o: ..\HEADER\vect.h
+..\obj\init.o: ..\HEADER\gyro.h
+..\obj\init.o: ..\HEADER\math.h
+..\obj\init.o: E:\MDK5\ARM\ARMCC\Bin\..\include\math.h
+..\obj\init.o: E:\MDK5\ARM\ARMCC\Bin\..\include\string.h
+..\obj\init.o: E:\MDK5\ARM\ARMCC\Bin\..\include\stdlib.h

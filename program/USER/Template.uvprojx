@@ -693,6 +693,16 @@
               <FileType>5</FileType>
               <FilePath>..\HEADER\mission.h</FilePath>
             </File>
+            <File>
+              <FileName>vect.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\HEADER\vect.h</FilePath>
+            </File>
+            <File>
+              <FileName>gyro.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\HEADER\gyro.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -752,6 +762,11 @@
               <FileName>readme.txt</FileName>
               <FileType>5</FileType>
               <FilePath>..\SENSOR\readme.txt</FilePath>
+            </File>
+            <File>
+              <FileName>gyro.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\SENSOR\gyro.c</FilePath>
             </File>
           </Files>
         </Group>

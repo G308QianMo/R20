@@ -11,4 +11,10 @@
 #include "sensor.h"
 #include "interrupt.h"
 
+//zhaohaining
+#include "vect.h"
+#include "gyro.h"
+#include <stdint.h>
+#include "math.h"
+
 #endif
