@@ -9,7 +9,7 @@
 **/
 
 //数据拆分宏定义，在发送大于1字节的数据类型时，比如int16、float等，需要把数据拆分成单独字节进行发送
-#define BYTE0(dwTemp)       ( *( (char *)(&dwTemp)		) )
+#define BYTE0(dwTemp)       ( *( (char *)(&dwTemp)    ) )
 #define BYTE1(dwTemp)       ( *( (char *)(&dwTemp) + 1) )
 #define BYTE2(dwTemp)       ( *( (char *)(&dwTemp) + 2) )
 #define BYTE3(dwTemp)       ( *( (char *)(&dwTemp) + 3) )
@@ -107,7 +107,7 @@ void Data_Check(unsigned char *data,unsigned char num)
 
 	if(u8_sum != data[num - 3]) Check_flag = 3;//校验和错误
 	
-  if(Check_flag == 0)//若接收不出现错误，则进行下一步数据处理
+       if(Check_flag == 0)//若接收不出现错误，则进行下一步数据处理
 	{
 			Data_Processing(static_u8_RxBuffer,num);//调用数据处理函数
 	}
