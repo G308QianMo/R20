@@ -4,7 +4,7 @@
 ..\obj\interrupt.o: ..\SYSTEM\sys\sys.h
 ..\obj\interrupt.o: ..\USER\stm32f4xx.h
 ..\obj\interrupt.o: ..\CORE\core_cm4.h
-..\obj\interrupt.o: E:\ARM\ARMCC\Bin\..\include\stdint.h
+..\obj\interrupt.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 ..\obj\interrupt.o: ..\CORE\core_cmInstr.h
 ..\obj\interrupt.o: ..\CORE\core_cmFunc.h
 ..\obj\interrupt.o: ..\CORE\core_cm4_simd.h
@@ -38,7 +38,7 @@
 ..\obj\interrupt.o: ..\FWLIB\inc\stm32f4xx_dcmi.h
 ..\obj\interrupt.o: ..\FWLIB\inc\stm32f4xx_fsmc.h
 ..\obj\interrupt.o: ..\SYSTEM\usart\usart.h
-..\obj\interrupt.o: E:\ARM\ARMCC\Bin\..\include\stdio.h
+..\obj\interrupt.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 ..\obj\interrupt.o: ..\HEADER\init.h
 ..\obj\interrupt.o: ..\HEADER\actuator_control.h
 ..\obj\interrupt.o: ..\HEADER\basial_move.h

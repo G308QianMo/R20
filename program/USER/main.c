@@ -3,6 +3,11 @@
 
 int main(void)
 {
+	Init();
+	
+	
+
+	
 	
 	return 0;
 }
