@@ -125,7 +125,7 @@ void GPIO_INIT(void)
 	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP; //推挽复用输出
 	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP; //上拉
 	GPIO_Init(GPIOA, &GPIO_InitStructure); //初始化PA2，PA3
-
+    //WDNMD
 	GPIO_PinAFConfig(GPIOA, GPIO_PinSource2, GPIO_AF_USART2); //GPIOA2复用为USART2
 	GPIO_PinAFConfig(GPIOA, GPIO_PinSource3, GPIO_AF_USART2); //GPIOA3复用为USART2
 #endif
