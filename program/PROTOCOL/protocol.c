@@ -225,28 +225,25 @@ void Data_Rerequest(unsigned char erro_type)
 	Send_Data(u8_data_to_send, 6);//发送数据请求
 }
 
-//unsigned int CAN_Time_Out = 0;
-//unsigned char can_tx_success_flag = 0;
-
-//static void CAN_Delay_Us(unsigned int t)
-//{
-//	int i;
-//	for(i=0;i<t;i++)
-//	{
-//		int a=40;
-//		while(a--);
-//	}
-//}
-
-
-//void ELMO_Delay(int8_t time)
-//{
-//	int16_t i;
-//	for (; time>0; time--)
-//	{
-//		for (i = 0; i<50; i++);
-//	}
-//}
+CanTxMsg TxMessage;
+u8 CAN1_SendMsg(u8* msg, u32 TX_STD_ID)
+{
+    u8 mbox;
+    u16 i = 0;
+    TxMessage.StdId = TX_STD_ID;				 //使用的标准ID		 
+    TxMessage.IDE = CAN_ID_STD;					 //标准模式
+    TxMessage.RTR = CAN_RTR_DATA;				 //发送的是数据
+    TxMessage.DLC = 8;							     //数据长度为2字节
+    for (i = 0; i<8; i++)
+    {
+        TxMessage.Data[i] = msg[i];
+    }
+    mbox = CAN_Transmit(CAN1, &TxMessage);
+    i = 0;
+    while ((CAN_TransmitStatus(CAN1, mbox) == CAN_TxStatus_Failed) && (i<0XFFF))i++;	//等待发送结束
+    if (i >= 0XFFF)return 1;//发送失败
+    return 0;		         //发送成功
+}
 
 
 void ELMO_Single_Enable(uint32_t elmo_id)

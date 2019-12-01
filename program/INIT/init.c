@@ -321,9 +321,6 @@ void GPIO_INIT(void)
 }
 
 
-
-
-
 /**
  *@function Periph_Init
  *@param    无
@@ -332,14 +329,19 @@ void GPIO_INIT(void)
 **/
 void Periph_Init(void)
 {
+#if USE_CAN_1 | USE_CAN_2
 	CAN_InitTypeDef        	CAN_InitStructure;
 	CAN_FilterInitTypeDef  	CAN_FilterInitStructure;
+#endif
+#if USE_USART_2 | USE_USART_3 | USE_UART_4 | USE_UART_5 | USE_USART_6
 	USART_InitTypeDef 		USART_InitStructure;
+#endif
 	NVIC_InitTypeDef  		NVIC_InitStructure;
+#if USE_TIM_1 | USE_TIM_2 | USE_TIM_3 | USE_TIM_4 | USE_TIM_5 | USE_TIM_6 | USE_TIM_7 | USE_TIM_8
 	TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
 	TIM_ICInitTypeDef  TIM_ICInitStructure;
 	TIM_OCInitTypeDef  TIM_OCInitStructure;
-
+#endif
 	//************************delay&NVIC************************//
 	delay_init(168);
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);//设置系统中断优先级分组2

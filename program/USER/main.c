@@ -3,6 +3,11 @@
 
 int main(void)
 {
+ Init();//≥ı ºªØ
 
+  while(1)
+ {
+
+ }
 }
 
