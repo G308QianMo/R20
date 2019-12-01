@@ -10,8 +10,7 @@
 #include "protocol.h"
 #include "sensor.h"
 #include "interrupt.h"
-
-
 #include <stdint.h>
 #include <string.h>
+
 #endif
