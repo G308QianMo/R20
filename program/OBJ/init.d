@@ -45,3 +45,4 @@
 ..\obj\init.o: ..\HEADER\protocol.h
 ..\obj\init.o: ..\HEADER\sensor.h
 ..\obj\init.o: ..\HEADER\interrupt.h
+..\obj\init.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h

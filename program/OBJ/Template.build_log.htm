@@ -17,12 +17,12 @@ Library Manager: ArmAr.exe V5.05 update 2 (build 169)
 Hex Converter:   FromElf.exe V5.05 update 2 (build 169)
 CPU DLL:         SARMCM3.DLL V5.15.0
 Dialog DLL:      DCM.DLL V1.13.2.0
-Target DLL:      CMSIS_AGDI.dll V1.21.12.0
+Target DLL:      Segger\JL2CM3.dll V2.99.15.0
 Dialog DLL:      TCM.DLL V1.14.5.0
  
 <h2>Project:</h2>
 H:\Github\R20\program\USER\Template.uvprojx
-Project File Date:  11/24/2019
+Project File Date:  12/01/2019
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.05 update 2 (build 169)', folder: 'D:\Keil_v5\ARM\ARMCC\Bin'
@@ -30,20 +30,26 @@ Build target 'Robocon2020'
 compiling main.c...
 compiling usart.c...
 compiling init.c...
-..\INIT\init.c(334): warning:  #177-D: variable "USART_InitStructure" was declared but never referenced
+..\INIT\init.c(335): warning:  #177-D: variable "CAN_InitStructure" was declared but never referenced
+        CAN_InitTypeDef         CAN_InitStructure;
+..\INIT\init.c(336): warning:  #177-D: variable "CAN_FilterInitStructure" was declared but never referenced
+        CAN_FilterInitTypeDef   CAN_FilterInitStructure;
+..\INIT\init.c(337): warning:  #177-D: variable "USART_InitStructure" was declared but never referenced
         USART_InitTypeDef               USART_InitStructure;
-..\INIT\init.c(336): warning:  #177-D: variable "TIM_TimeBaseStructure" was declared but never referenced
+..\INIT\init.c(338): warning:  #177-D: variable "NVIC_InitStructure" was declared but never referenced
+        NVIC_InitTypeDef                NVIC_InitStructure;
+..\INIT\init.c(339): warning:  #177-D: variable "TIM_TimeBaseStructure" was declared but never referenced
         TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
-..\INIT\init.c(337): warning:  #177-D: variable "TIM_ICInitStructure" was declared but never referenced
+..\INIT\init.c(340): warning:  #177-D: variable "TIM_ICInitStructure" was declared but never referenced
         TIM_ICInitTypeDef  TIM_ICInitStructure;
-..\INIT\init.c(338): warning:  #177-D: variable "TIM_OCInitStructure" was declared but never referenced
+..\INIT\init.c(341): warning:  #177-D: variable "TIM_OCInitStructure" was declared but never referenced
         TIM_OCInitTypeDef  TIM_OCInitStructure;
-..\INIT\init.c: 4 warnings, 0 errors
+..\INIT\init.c: 7 warnings, 0 errors
 compiling interrupt.c...
 linking...
-Program Size: Code=8080 RO-data=424 RW-data=48 ZI-data=1832  
+Program Size: Code=5216 RO-data=424 RW-data=40 ZI-data=1632  
 FromELF: creating hex file...
-"..\OBJ\Template.axf" - 0 Error(s), 4 Warning(s).
+"..\OBJ\Template.axf" - 0 Error(s), 7 Warning(s).
 
 <h2>Collection of Component include folders:</h2>
   H:\Github\R20\program\USER\RTE

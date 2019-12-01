@@ -3,8 +3,8 @@
 /**
 *@file    init.c
 *@author	Liu CX
-*@version 1.0
-*@date    2019.11.24
+*@version 1.3
+*@date    2019.12.01
 *@brief   进行硬件初始化,谁要是敢乱改我的程序我会记仇的，哼！
 **/
 
@@ -20,6 +20,7 @@ void Init(void)
 {
 	GPIO_INIT();
 	Periph_Init();
+	Beep_ms(100);
 }
 /**
  *@function GPIO_INIT
@@ -172,6 +173,8 @@ void GPIO_INIT(void)
 	//************************UART5_INIT************************//
 	//UART5_TX: PC12
 	//UART5_RX: PD2
+
+	USART_DeInit(UART5);
 
 	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOC, ENABLE); //使能GPIOC时钟
 	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOD, ENABLE); //使能GPIOD时钟
@@ -349,6 +352,9 @@ void Periph_Init(void)
 	//过滤器0，不拦截任何报文（掩码 0x000）
 	//报文存储于FIFO0
 
+	//开时钟
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_CAN1, ENABLE);	//使能CAN1时钟	
+
 	//CAN单元设置，
 	CAN_InitStructure.CAN_TTCM = DISABLE;		//非时间触发通信模式   
 	CAN_InitStructure.CAN_ABOM = DISABLE;		//软件自动离线管理	  
@@ -396,7 +402,10 @@ void Periph_Init(void)
 	//过滤器15，不拦截任何报文（掩码 0x000）  **特别地：CAN2的过滤器必须从14开始
 	//报文存储于FIFO1
 
-	//CAN单元设置
+	//开时钟
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_CAN2, ENABLE);	//使能CAN2时钟	
+
+	//CAN单元设置	
 	CAN_InitStructure.CAN_TTCM = DISABLE;		//非时间触发通信模式   
 	CAN_InitStructure.CAN_ABOM = DISABLE;		//软件自动离线管理	  
 	CAN_InitStructure.CAN_AWUM = DISABLE;		//睡眠模式通过软件唤醒(清除CAN->MCR的SLEEP位)
@@ -534,8 +543,8 @@ void Periph_Init(void)
 	USART_InitStructure.USART_Parity = USART_Parity_No;//无奇偶校验位
 	USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;//无硬件数据流控制
 	USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;	//收发模式
-	USART_ITConfig(UART5, USART_IT_RXNE, ENABLE);//开启中断
-	USART_Cmd(UART5, ENABLE);
+	USART_Init(UART5, &USART_InitStructure); //初始化串口5
+	USART_Cmd(UART5, ENABLE);  	//使能串口
 
 #if UART5_RX_ENABLE
 	USART_ITConfig(UART5, USART_IT_RXNE, ENABLE);//开启相关中断
@@ -622,7 +631,7 @@ void Periph_Init(void)
 	TIM_ClearFlag(TIM1, TIM_FLAG_Update);// 清除定时器更新中断标志位
 	TIM_ITConfig(TIM1, TIM_IT_Update, ENABLE);// 开启定时器更新中断
 	TIM_Cmd(TIM1, ENABLE);	// 使能定时器
-
+	delay_ms(20);
 #endif
 
 #if USE_TIM_2 == 2
@@ -668,6 +677,7 @@ void Periph_Init(void)
 	TIM_ClearFlag(TIM2, TIM_FLAG_Update);// 清除定时器更新中断标志位
 	TIM_ITConfig(TIM2, TIM_IT_Update, ENABLE);// 开启定时器更新中断
 	TIM_Cmd(TIM2, ENABLE);	// 使能定时器
+	delay_ms(20);
 #endif
 
 #if USE_TIM_3 == 2
@@ -713,6 +723,7 @@ void Periph_Init(void)
 	TIM_ClearFlag(TIM3, TIM_FLAG_Update);// 清除定时器更新中断标志位
 	TIM_ITConfig(TIM3, TIM_IT_Update, ENABLE);// 开启定时器更新中断
 	TIM_Cmd(TIM3, ENABLE);	// 使能定时器
+	delay_ms(20);
 #endif
 
 #if USE_TIM_4 == 2
@@ -771,6 +782,7 @@ void Periph_Init(void)
 	TIM_ClearFlag(TIM4, TIM_FLAG_Update);// 清除定时器更新中断标志位
 	TIM_ITConfig(TIM4, TIM_IT_Update, ENABLE);// 开启定时器更新中断
 	TIM_Cmd(TIM4, ENABLE);	// 使能定时器
+	delay_ms(20);
 #endif
 #if USE_TIM_5 == 2
 	//************************TIM5_Encoder************************//
@@ -816,6 +828,7 @@ void Periph_Init(void)
 	TIM_ClearFlag(TIM5, TIM_FLAG_Update);// 清除定时器更新中断标志位
 	TIM_ITConfig(TIM5, TIM_IT_Update, ENABLE);// 开启定时器更新中断
 	TIM_Cmd(TIM5, ENABLE);	// 使能定时器
+	delay_ms(20);
 #endif
 
 #if USE_TIM_6 == 1
@@ -836,6 +849,7 @@ void Periph_Init(void)
 	TIM_ClearFlag(TIM6, TIM_FLAG_Update);// 清除定时器更新中断标志位
 	TIM_ITConfig(TIM6, TIM_IT_Update, ENABLE);// 开启定时器更新中断
 	TIM_Cmd(TIM6, ENABLE);// 使能定时器
+	delay_ms(20);
 #endif
 
 #if USE_TIM_7 == 1
@@ -850,13 +864,13 @@ void Periph_Init(void)
 
 	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM7, ENABLE);	// 开启TIMx_CLK,x[6,7] 
 
-
 	TIM_TimeBaseStructure.TIM_Period = TIM7_Period;//当定时器从0计数到4999，即为5000次，为一个定时周期
 	TIM_TimeBaseStructure.TIM_Prescaler = TIM7_Prescaler;
 	TIM_TimeBaseInit(TIM7, &TIM_TimeBaseStructure);// 初始化定时器TIMx, x[2,3,4,5]
 	TIM_ClearFlag(TIM7, TIM_FLAG_Update);// 清除定时器更新中断标志位
 	TIM_ITConfig(TIM7, TIM_IT_Update, ENABLE);// 开启定时器更新中断
 	TIM_Cmd(TIM7, ENABLE);// 使能定时器
+	delay_ms(20);
 #endif
 
 #if USE_TIM_8 == 1
@@ -882,6 +896,7 @@ void Periph_Init(void)
 	TIM_ClearFlag(TIM8, TIM_FLAG_Update);// 清除定时器更新中断标志位
 	TIM_ITConfig(TIM8, TIM_IT_Update, ENABLE);// 开启定时器更新中断
 	TIM_Cmd(TIM8, ENABLE);	// 使能定时器
+	delay_ms(20);
 
 #endif
 
@@ -893,9 +908,43 @@ void Periph_Init(void)
 
 
 
+}
 
 
 
+#if USE_BEEP
+/**
+ *@function Beep_ms
+ *@param    uint16_t ms
+ *@brief    蜂鸣器鸣叫ms
+ *@retval   none`
+**/
+void Beep_ms(uint16_t ms)
+{
+	BEEP_ON;
+	delay_ms(ms);
+	BEEP_OFF;
+}
+
+#endif
+
+
+
+
+/**
+ *@function Usart_SendByte
+ *@param    USART_TypeDef * pUSARTx  串口地址
+			uint8_t ch	待发送字符
+ *@brief    串口发送一个字符
+ *@retval   none`
+**/
+void Usart_SendByte(USART_TypeDef * pUSARTx, uint8_t ch)
+{
+	/* 发送一个字节数据到USART */
+	USART_SendData(pUSARTx, ch);
+
+	/* 等待发送数据寄存器为空 */
+	while (USART_GetFlagStatus(pUSARTx, USART_FLAG_TXE) == RESET);
 }
 
 

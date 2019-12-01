@@ -1,17 +1,28 @@
 #ifndef __INIT_H
 #define __INIT_H
+/**
+*@file    init.h
+*@author	Liu CX
+*@version 1.3
+*@date    2019.12.01
+*@brief   进行硬件初始化配置
+**/
+
 
 void Init(void);
 void GPIO_INIT(void);//IO口初始化
 void Periph_Init(void);//外设初始化
 
 
+//************************Debuger************************//
+void Usart_SendByte( USART_TypeDef * pUSARTx, uint8_t ch);	//任意串口发送一个字符
+
 
 //***********************外设使能控制************************//
 #define 	USE_LED			1		//0=禁用,1=使用
 #define 	USE_BEEP		1		//0=禁用,1=使用
-#define 	USE_KEY			1		//0=禁用,1=使用
-#define		USE_CAN_1		1		//0=禁用,1=使用
+#define 	USE_KEY			0		//0=禁用,1=使用
+#define		USE_CAN_1		0		//0=禁用,1=使用
 #define		USE_CAN_2		0		//0=禁用,1=使用
 #define 	USE_USART_1		1		//0=禁用,1=使用
 #define 	USE_USART_2		0		//0=禁用,1=使用
@@ -27,6 +38,8 @@ void Periph_Init(void);//外设初始化
 #define		USE_TIM_6		0		//0=禁用,1=定时器中断
 #define		USE_TIM_7		0		//0=禁用,1=定时器中断
 #define		USE_TIM_8		0		//0=禁用,1=定时器中断
+
+
 
 
 //系统初始化SystemInit函数里初始化APB1总线时钟为4分频即42M，
@@ -53,7 +66,7 @@ void Periph_Init(void);//外设初始化
 //************************Beep************************//
 #define BEEP_ON  GPIO_SetBits(GPIOA, GPIO_Pin_4)	//打开蜂鸣器
 #define BEEP_OFF GPIO_ResetBits(GPIOA, GPIO_Pin_4)	//关闭蜂鸣器
-
+void Beep_ms(uint16_t ms); 	//蜂鸣器鸣叫ms
 #endif
 
 #if USE_KEY
@@ -141,7 +154,7 @@ void Periph_Init(void);//外设初始化
 #define		UART5_RX_ENABLE			1	//使能UART5接收中断
 
 #define		UART5_RX_IRQPrePri		1	//主优先级
-#define		UART5_RX_IRQSubPri		0	//次优先级
+#define		UART5_RX_IRQSubPri		1	//次优先级
 #endif
 
 #if USE_USART_6
@@ -154,27 +167,27 @@ void Periph_Init(void);//外设初始化
 #endif
 
 #if USE_TIM_1 == 1
-//************************TIM1_Timer************************//
-#define		TIM1_Period		5000-1
-#define		TIM1_Prescaler	16800-1	//分频
-#define		TIM1_RepetitionCounter	0 //重复计数
+//************************TIM1_Timer 168M ************************//
+#define		TIM1_Period		500-1
+#define		TIM1_Prescaler	1000-1	//分频
+#define		TIM1_RepetitionCounter	168-1 //重复计数
 
 #define		TIM1_IRQPrePri		1	//主优先级
 #define		TIM1_IRQSubPri		0	//次优先级
 #endif
 #if USE_TIM_2 == 1
-//************************TIM2_Timer************************//
-#define		TIM2_Period		5000-1
-#define		TIM2_Prescaler	16800-1
+//************************TIM2_Timer 84M ************************//
+#define		TIM2_Period		25000-1
+#define		TIM2_Prescaler	1680-1
 
 #define		TIM2_IRQPrePri		1	//主优先级
 #define		TIM2_IRQSubPri		0	//次优先级
 #endif
 
 #if USE_TIM_3 == 1
-//************************TIM3_Timer************************//
-#define		TIM3_Period		5000-1
-#define		TIM3_Prescaler	16800-1
+//************************TIM3_Timer 84M ************************//
+#define		TIM3_Period		25000-1
+#define		TIM3_Prescaler	1680-1
 
 #define		TIM3_IRQPrePri		1	//主优先级
 #define		TIM3_IRQSubPri		0	//次优先级
@@ -182,55 +195,54 @@ void Periph_Init(void);//外设初始化
 
 #if USE_TIM_4 == 2
 //************************TIM4_PWM************************//
-#define		TIM4_Period		8400 - 1
-#define		TIM4_Prescaler	840 - 1
+#define		TIM4_Period		25000 - 1
+#define		TIM4_Prescaler	1680 - 1
 #endif
 
 #if USE_TIM_4 == 1
-//************************TIM4_Timer************************//
-#define		TIM4_Period		5000-1
-#define		TIM4_Prescaler	16800-1
+//************************TIM4_Timer 84M ************************//
+#define		TIM4_Period		25000-1
+#define		TIM4_Prescaler	1680-1
 
 #define		TIM4_IRQPrePri		1	//主优先级
 #define		TIM4_IRQSubPri		0	//次优先级
 #endif
 
 #if USE_TIM_5 == 1
-//************************TIM5_Timer************************//
-#define		TIM5_Period		5000-1
-#define		TIM5_Prescaler	16800-1
+//************************TIM5_Timer 84M ************************//
+#define		TIM5_Period		25000-1
+#define		TIM5_Prescaler	1680-1
 
 #define		TIM5_IRQPrePri		1	//主优先级
 #define		TIM5_IRQSubPri		0	//次优先级
 #endif
 
 #if USE_TIM_6 == 1
-//************************TIM6_Timer************************//
-#define		TIM6_Period		5000-1
-#define		TIM6_Prescaler	16800-1
+//************************TIM6_Timer 84M ************************//
+#define		TIM6_Period		25000-1
+#define		TIM6_Prescaler	1680-1
 
 #define		TIM6_IRQPrePri		1	//主优先级
 #define		TIM6_IRQSubPri		0	//次优先级
 #endif
 
 #if USE_TIM_7 == 1
-//************************TIM7_Timer************************//
-#define		TIM7_Period		5000-1
-#define		TIM7_Prescaler	16800-1
+//************************TIM7_Timer 84M ************************//
+#define		TIM7_Period		25000-1
+#define		TIM7_Prescaler	1680-1
 
 #define		TIM7_IRQPrePri		1	//主优先级
 #define		TIM7_IRQSubPri		0	//次优先级
 #endif
 
 #if USE_TIM_8 == 1
-//************************TIM8_Timer************************//
-#define		TIM8_Period		5000-1
-#define		TIM8_Prescaler	16800-1	//分频
-#define		TIM8_RepetitionCounter	0 //重复计数
+//************************TIM8_Timer 168M ************************//
+#define		TIM8_Period		500-1
+#define		TIM8_Prescaler	1000-1	//分频
+#define		TIM8_RepetitionCounter	168-1 //重复计数
 
 #define		TIM8_IRQPrePri		1	//主优先级
 #define		TIM8_IRQSubPri		0	//次优先级
 #endif
-
 
 #endif
