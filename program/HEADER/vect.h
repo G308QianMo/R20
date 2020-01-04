@@ -7,7 +7,7 @@ typedef struct
 {
     float x;
     float y;
-	  float angle;
+	float angle;
 }EncodePointTypeDef;
 
 typedef struct

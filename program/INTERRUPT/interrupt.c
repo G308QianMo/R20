@@ -98,6 +98,7 @@ void USART1_IRQHandler(void)
 **/
 #if USE_USART_2
 #if USART2_RX_ENABLE
+extern int32_t Stop_flag;
 void USART2_IRQHandler(void)
 {
 	uint8_t ucTemp;
@@ -105,7 +106,10 @@ void USART2_IRQHandler(void)
 	{
 		ucTemp = USART_ReceiveData(USART2);
 		//*******************************中断服务函数开始******************************//
-
+        if(ucTemp == 0x07)
+		{
+			Stop_flag = 1;
+		}
 		//*******************************中断服务函数结束******************************// 
 	}
 }
