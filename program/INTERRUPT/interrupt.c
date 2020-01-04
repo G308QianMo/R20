@@ -73,7 +73,7 @@ void CAN2_RX1_IRQHandler(void)
  *@brief    USART1中断服务函数
  *@retval   none
 **/
-#if USE_USART_1
+#if EN_USART1_RX
 #if USART1_RX_ENABLE
 void USART1_IRQHandler(void)
 {
