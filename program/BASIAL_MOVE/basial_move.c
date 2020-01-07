@@ -145,7 +145,7 @@ void STOP(void)
 }
 
 
-extern int32_t Global_Target_X,Global_Target_Y,Global_Target_Angle;
+int32_t Global_Target_X,Global_Target_Y,Global_Target_Angle;
 extern EncodePointTypeDef global_gyro_location;
 
 /**

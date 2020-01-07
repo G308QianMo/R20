@@ -10,4 +10,5 @@ void Clear_Static_Wheel_Spd(void);
 void STOP(void);
 void Print(int32_t Spd[4], int Print_Frequency);
 
+extern int32_t Global_Target_X,Global_Target_Y,Global_Target_Angle;
 #endif
