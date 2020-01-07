@@ -4,7 +4,7 @@
 #define elmo2_id 0xF2
 #define elmo3_id 0xF3
 #define elmo4_id 0xF4
-
+#define elmo_delay 200
 void ELMO_Delay(int8_t time);
 
 void ELMO_Single_Enable(uint32_t elmo_id);

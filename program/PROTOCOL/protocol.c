@@ -13,7 +13,7 @@
 #define BYTE1(dwTemp)       ( *( (char *)(&dwTemp) + 1) )
 #define BYTE2(dwTemp)       ( *( (char *)(&dwTemp) + 2) )
 #define BYTE3(dwTemp)       ( *( (char *)(&dwTemp) + 3) )
-#define elmo_delay 200
+
 
 unsigned char u8_data_to_send[100];	//数据发送缓存
 static unsigned char static_u8_RxBuffer[100];//接收数据缓存
