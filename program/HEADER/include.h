@@ -20,5 +20,6 @@
 #include "basial_move.h"
 #include "pid_control.h"
 #include "pid_parameter.h"
+#include "elmo.h"
 
 #endif
