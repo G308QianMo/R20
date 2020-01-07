@@ -12,7 +12,7 @@
 void Init(void);
 void GPIO_INIT(void);//IO口初始化
 void Periph_Init(void);//外设初始化
-
+void Driver_Init(void);//电机驱动初始化
 
 //************************Debuger************************//
 void Usart_SendByte( USART_TypeDef * pUSARTx, uint8_t ch);	//任意串口发送一个字符

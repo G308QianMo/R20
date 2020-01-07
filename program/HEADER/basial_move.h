@@ -1,8 +1,8 @@
 #ifndef __BASIAL_MOVE_H
 #define __BASIAL_MOVE_H
 
-#define  OFFSET_ANG (0)   //Õı·½ÏòÓëxµÄ¼Ğ½Ç
-#define  MAX_SPEED  (15000)  //×î´óËÙ¶È
+#define  OFFSET_ANG (0)   //æ­£æ–¹å‘ä¸xçš„å¤¹è§’
+#define  MAX_SPEED  (15000)  //æœ€å¤§é€Ÿåº¦
 
 void Move_To_Point_Set(int32_t X, int32_t Y, float Alpha, int32_t Speed);
 void MOVE_As_Circle(int32_t Speed);

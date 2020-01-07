@@ -20,7 +20,18 @@ void Init(void)
 {
 	GPIO_INIT();
 	Periph_Init();
+	Driver_Init();
 	Beep_ms(100);
+}
+/**
+ *@function Driver_Init
+ *@param    无
+ *@brief    用于外部驱动器的初始化
+ *@retval   无
+**/
+void Driver_Init(void)
+{
+  ELMO_Init();//elmo驱动器初始化
 }
 /**
  *@function GPIO_INIT

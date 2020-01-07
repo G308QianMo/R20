@@ -114,14 +114,6 @@ void SetMotorSpeed(void)
     spd[1] = wheel_spd[1] * 3.21;
     spd[2] = wheel_spd[2] * 3.21;
     spd[3] = wheel_spd[3] * 3.21;
-
-    /*??????????  ????EPOS?????r/min  ????????J=12?,?????125mm
-    ??n=wheel_spd[]*60*J/(R*2*3.14)   ????n=wheel_spd[]*60*12/(125*3.14)=wheel_spd[]*1.83*/
-//    spd[0] = wheel_spd[0] * 1.83;
-//    spd[1] = wheel_spd[1] * 1.83;
-//    spd[2] = wheel_spd[2] * 1.83;
-//    spd[3] = wheel_spd[3] * 1.83;
-	
 	
     ClearWheelSpeed();
 }

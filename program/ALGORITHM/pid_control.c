@@ -5,18 +5,18 @@
 *@author  HYH
 *@version 1.0
 *@date    2020/1/4
-*@brief   PID¿ØÖÆ
+*@brief   PIDæ§åˆ¶
 **/
 
-extern EncodePointTypeDef global_gyro_location;  //»ñÈ¡µ±Ç°Î»ÖÃ
+extern EncodePointTypeDef global_gyro_location;  //è·å–å½“å‰ä½ç½®
 
 /**
 *@function PID_Set_Value_Angle
-*@param    Angle ½Ç¶ÈÄ¿±êÖµ
-*@brief    ¸ø¶¨Ä¿±êÖµ
+*@param    Angle è§’åº¦ç›®æ ‡å€¼
+*@brief    ç»™å®šç›®æ ‡å€¼
 *@retval   NULL
 **/
-//ÏÂÃæÈı¸öÒ»¸öÓÃ·¨£¬ÖĞ¼äº¯Êı
+//ä¸‹é¢ä¸‰ä¸ªä¸€ä¸ªç”¨æ³•ï¼Œä¸­é—´å‡½æ•°
 void PID_Set_Value_Angle(int32_t Angle)
 {
 	Global_PID_Parameter.PID_Angle.Calculate.Set_Value = Angle;
@@ -32,15 +32,15 @@ void PID_Set_Value_Y(int32_t Y)
 	Global_PID_Parameter.PID_Y.Calculate.Set_Value = Y;
 }
 
-int32_t Global_Target_X = 0,Global_Target_Y = 0,Global_Target_Angle = 0;//Ä¿±êÖµ
+int32_t Global_Target_X = 0,Global_Target_Y = 0,Global_Target_Angle = 0;//ç›®æ ‡å€¼
 
 /**
 *@function PID_Loop_X
 *@param    NULL
-*@brief    PIDÊµÏÖ
+*@brief    PIDå®ç°
 *@retval   NULL
 **/
-//ÏÂÃæÈı¸ö×÷ÓÃÒ»Ñù
+//ä¸‹é¢ä¸‰ä¸ªä½œç”¨ä¸€æ ·
 void PID_Loop_X(void)
 {
 	int32_t PID_Output;
@@ -70,10 +70,10 @@ void PID_Loop_angle(void)
 
 /**
 *@function PID_Calculate
-*@param    *PID_Loop  ¶¨ÒåÎªPID_Loop_DefµÄ½á¹¹ÌåµÄµØÖ·
-           Real_Value  ÂëÅÌ½ÓÊÕµ½µÄµ±Ç°ÕæÊµÖµ
-*@brief    PID¼ÆËã
-*@retval   PIDÊä³ö
+*@param    *PID_Loop  å®šä¹‰ä¸ºPID_Loop_Defçš„ç»“æ„ä½“çš„åœ°å€
+           Real_Value  ç ç›˜æ¥æ”¶åˆ°çš„å½“å‰çœŸå®å€¼
+*@brief    PIDè®¡ç®—
+*@retval   PIDè¾“å‡º
 **/
 int32_t PID_Cal(PID_Loop_Def * PID_Loop,int32_t Real_Value)
 {
@@ -124,9 +124,9 @@ int32_t PID_Cal(PID_Loop_Def * PID_Loop,int32_t Real_Value)
 
 /**
 *@function PID_Setup
-*@param    Èç×ÖÃæÀí½â£¬ÉèÖÃPID²ÎÊı
-*@brief    ÉèÖÃPID²ÎÊı
-           È±Ê¡µÄ²ÎÊıÈ¡pid_parameter.cÀïÃæ¿´×¢½â£¬¶¼²»ÓÃµÄ£¬ÉèÖÃµÄÄ¬ÈÏÖµ
+*@param    å¦‚å­—é¢ç†è§£ï¼Œè®¾ç½®PIDå‚æ•°
+*@brief    è®¾ç½®PIDå‚æ•°
+           ç¼ºçœçš„å‚æ•°å–pid_parameter.cé‡Œé¢çœ‹æ³¨è§£ï¼Œéƒ½ä¸ç”¨çš„ï¼Œè®¾ç½®çš„é»˜è®¤å€¼
 *@retval   NULL
 **/
 void PID_Setup(int32_t Angle_P,  int32_t Angle_D,  int32_t Angle_Max,  int32_t Angle_Min,
