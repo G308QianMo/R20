@@ -5,7 +5,7 @@
 *@author  HYH
 *@version 1.0
 *@date    2020/1/4
-*@brief   »ù±¾µ×²ã¿ØÖÆ
+*@brief   åŸºæœ¬åº•å±‚æ§åˆ¶
 **/
 
 static int32_t Static_Wheel_Spd[4] = {0};
@@ -13,11 +13,11 @@ int32_t Stop_flag = 0;
 
 /**
 *@function Move_To_Point_Set
-*@param    X  X×ø±ê
-           Y  Y×ø±ê
-           Alpha  ³µÉí½Ç¶È
-           Speed  ËÙ¶È
-*@brief    ÒÔAlphaÎª½Ç¶È£¬SpeedÎªËÙ¶È£¬Ïò(X,Y)×ß£¬Ò²¿ÉÒÔÓÃ(X,Y)±íÊ¾·½ÏòÏòÁ¿
+*@param    X  Xåæ ‡
+           Y  Yåæ ‡
+           Alpha  è½¦èº«è§’åº¦
+           Speed  é€Ÿåº¦
+*@brief    ä»¥Alphaä¸ºè§’åº¦ï¼ŒSpeedä¸ºé€Ÿåº¦ï¼Œå‘(X,Y)èµ°ï¼Œä¹Ÿå¯ä»¥ç”¨(X,Y)è¡¨ç¤ºæ–¹å‘å‘é‡
 *@retval   NULL
 **/
 void Move_To_Point_Set(int32_t X, int32_t Y, float Alpha, int32_t Speed)
@@ -55,8 +55,8 @@ void Move_To_Point_Set(int32_t X, int32_t Y, float Alpha, int32_t Speed)
 
 /**
 *@function MOVE_As_Circle
-*@param    Speed  ËÙ¶È
-*@brief    ÒÔSpeedÎªËÙ¶ÈÔ­µØ×ª
+*@param    Speed  é€Ÿåº¦
+*@brief    ä»¥Speedä¸ºé€Ÿåº¦åŸåœ°è½¬
 *@retval   NULL
 **/
 void MOVE_As_Circle(int32_t Speed)
@@ -77,7 +77,7 @@ void MOVE_As_Circle(int32_t Speed)
 /**
 *@function Wheel_Spd_To_Motor
 *@param    NULL
-*@brief    ½«Static_Wheel_SpdÖĞÀÛ¼ÓºóµÄËÙ¶È¸øµ½µç»ú
+*@brief    å°†Static_Wheel_Spdä¸­ç´¯åŠ åçš„é€Ÿåº¦ç»™åˆ°ç”µæœº
 *@retval   NULL
 **/
 void Wheel_Spd_To_Motor(void)
@@ -95,7 +95,7 @@ void Wheel_Spd_To_Motor(void)
 	
 	Max_Spd = my_max(my_max(my_max(my_abs(Spd[0]),my_abs(Spd[1])),my_abs(Spd[2])),my_abs(Spd[3]));
 
-	//ÏŞËÙ
+	//é™é€Ÿ
 	if (Max_Spd > MAX_SPEED)
     {
         Percent = (double)MAX_SPEED / (double)Max_Spd;
@@ -121,7 +121,7 @@ void Wheel_Spd_To_Motor(void)
 /**
 *@function Clear_Static_Wheel_Spd
 *@param    NULL
-*@brief    Çå³ıClear_Static_Wheel_SpdÖĞËÙ¶È£¬·½±ãÔÙ´ÎÀÛ¼Ó
+*@brief    æ¸…é™¤Clear_Static_Wheel_Spdä¸­é€Ÿåº¦ï¼Œæ–¹ä¾¿å†æ¬¡ç´¯åŠ 
 *@retval   NULL
 **/
 void Clear_Static_Wheel_Spd(void)
@@ -150,9 +150,9 @@ extern EncodePointTypeDef global_gyro_location;
 
 /**
 *@function Print
-*@param    Spd  ¾ÍÊÇ¸÷µç»úËÙ¶È
-           Print_Frequency  ·¢ËÍÊı¾İÆµÂÊ£¬Ô½´ó·¢µÄÔ½Âı
-*@brief    ·¢ËÍ¸÷ÏîĞÅÏ¢
+*@param    Spd  å°±æ˜¯å„ç”µæœºé€Ÿåº¦
+           Print_Frequency  å‘é€æ•°æ®é¢‘ç‡ï¼Œè¶Šå¤§å‘çš„è¶Šæ…¢
+*@brief    å‘é€å„é¡¹ä¿¡æ¯
 *@retval   NULL
 **/
 void Print(int32_t Spd[4], int Print_Frequency)
