@@ -6,7 +6,6 @@
 #include "usart.h"
 #include "init.h"
 #include "actuator_control.h"
-#include "basial_move.h"
 #include "protocol.h"
 #include "sensor.h"
 #include "interrupt.h"
@@ -16,6 +15,10 @@
 //zhaohaining
 #include "vect.h"
 #include "gyro.h"
-#include "math.h"
+#include "my_math.h"
+
+#include "basial_move.h"
+#include "pid_control.h"
+#include "pid_parameter.h"
 
 #endif
