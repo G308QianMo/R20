@@ -47,7 +47,7 @@ void Send_Data(unsigned char *data, unsigned char u8_length)
 	for (unsigned char i = 0; i < u8_length; i++)
 	{
 		USART_SendData(USART1, data[i]);
-		delay_us(90);
+		while (USART_GetFlagStatus(USART1, USART_FLAG_TXE) == RESET);
 	}
 }
 
