@@ -8,7 +8,7 @@
 *@brief   PID控制
 **/
 
-extern EncodePointTypeDef global_gyro_location;  //获取当前位置
+extern __IO EncodePointTypeDef global_gyro_location;;  //获取当前位置
 
 /**
 *@function PID_Set_Value_Angle

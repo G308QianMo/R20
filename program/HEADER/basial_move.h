@@ -11,4 +11,6 @@ void STOP(void);
 void Print(int32_t Spd[4], int Print_Frequency);
 
 extern int32_t Global_Target_X,Global_Target_Y,Global_Target_Angle;
+extern __IO EncodePointTypeDef global_gyro_location;
+
 #endif

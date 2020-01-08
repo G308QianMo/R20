@@ -712,6 +712,26 @@
               <FileType>5</FileType>
               <FilePath>..\HEADER\elmo.h</FilePath>
             </File>
+            <File>
+              <FileName>pid_parameter.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\HEADER\pid_parameter.h</FilePath>
+            </File>
+            <File>
+              <FileName>my_math.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\HEADER\my_math.h</FilePath>
+            </File>
+            <File>
+              <FileName>pid_control.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\HEADER\pid_control.h</FilePath>
+            </File>
+            <File>
+              <FileName>stdint.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\HEADER\stdint.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -826,6 +846,21 @@
               <FileName>readme.txt</FileName>
               <FileType>5</FileType>
               <FilePath>..\MISSION\readme.txt</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>ALGORITHM</GroupName>
+          <Files>
+            <File>
+              <FileName>pid_control.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\ALGORITHM\pid_control.c</FilePath>
+            </File>
+            <File>
+              <FileName>pid_parameter.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\ALGORITHM\pid_parameter.c</FilePath>
             </File>
           </Files>
         </Group>

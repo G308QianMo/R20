@@ -1,4 +1,5 @@
 #include "include.h"
+#include "basial_move.h"
 
 /**
 *@file    basial_move
@@ -145,8 +146,6 @@ void STOP(void)
 }
 
 
-int32_t Global_Target_X,Global_Target_Y,Global_Target_Angle;
-extern EncodePointTypeDef global_gyro_location;
 
 /**
 *@function Print
