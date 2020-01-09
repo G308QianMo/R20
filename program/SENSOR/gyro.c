@@ -4,32 +4,32 @@ static void GYRO_Reset_Module(void);
 /**
 *@function GYRO_Init
 *@param    void
-*@brief    ÍÓÂİÒÇ½øĞĞ¶à´Î½øĞĞ³õÊ¼»¯£¬³õÊ¼»¯×ø±êÖµÓë½Ç¶ÈÖµÎªÁã
+*@brief    é™€èºä»ªè¿›è¡Œå¤šæ¬¡è¿›è¡Œåˆå§‹åŒ–ï¼Œåˆå§‹åŒ–åæ ‡å€¼ä¸è§’åº¦å€¼ä¸ºé›¶
 *@retval   void
 **/
 void GYRO_Init(void)
 {
 
-    GYRO_Reset_Module(); //¸´Î»
+    GYRO_Reset_Module(); //å¤ä½
 	
-    GYRO_Set_Angle(0);   //Ğ´Èë³õÖµ 
+    GYRO_Set_Angle(0);   //å†™å…¥åˆå€¼ 
     GYRO_Set_Position(0, 0);
 	
-    delay_ms(20);        //ÑÓÊ±
+    delay_ms(20);        //å»¶æ—¶
 	
-    GYRO_Set_Angle(0);   //ÔÙ´ÎĞ´Èë³õÖµ  
+    GYRO_Set_Angle(0);   //å†æ¬¡å†™å…¥åˆå€¼  
     GYRO_Set_Position(0, 0);
 	
-    delay_ms(20);        //ÑÓÊ±
+    delay_ms(20);        //å»¶æ—¶
 	
-    GYRO_Set_Angle(0);   //ÔÙ´ÎĞ´Èë³õÖµ  
+    GYRO_Set_Angle(0);   //å†æ¬¡å†™å…¥åˆå€¼  
     GYRO_Set_Position(0, 0);
 }
 
 /**
 *@function GYRO_Set_Angle
-*@param    angle£ºÉè¶¨½Ç¶ÈÖµ
-*@brief    ÉèÖÃÍÓÂİÒÇ½Ç¶ÈÖµ£¬³õÊ¼»¯Ê±½Ç¶È¹éÁãÊ¹ÓÃ
+*@param    angleï¼šè®¾å®šè§’åº¦å€¼
+*@brief    è®¾ç½®é™€èºä»ªè§’åº¦å€¼ï¼Œåˆå§‹åŒ–æ—¶è§’åº¦å½’é›¶ä½¿ç”¨
 *@retval   void
 **/
 void GYRO_Set_Angle(float angle)
@@ -50,8 +50,8 @@ void GYRO_Set_Angle(float angle)
 
 /**
 *@function GYRO_Set_Position
-*@param    pos_x£ºÉè¶¨x×ø±êÖµ£»pos_y£ºÉè¶¨y×ø±êÖµ
-*@brief    ÉèÖÃÍÓÂİÒÇ×ø±êÖµ£¬³õÊ¼»¯×ø±êÖµ¹éÁãÊ±Ê¹ÓÃ
+*@param    pos_xï¼šè®¾å®šxåæ ‡å€¼ï¼›pos_yï¼šè®¾å®šyåæ ‡å€¼
+*@brief    è®¾ç½®é™€èºä»ªåæ ‡å€¼ï¼Œåˆå§‹åŒ–åæ ‡å€¼å½’é›¶æ—¶ä½¿ç”¨
 *@retval   void
 **/
 void GYRO_Set_Position(int32_t pos_x, int32_t pos_y)
@@ -78,7 +78,7 @@ void GYRO_Set_Position(int32_t pos_x, int32_t pos_y)
 /**
 *@function GYRO_Reset_Module
 *@param    void
-*@brief    ÍÓÂİÒÇÈí¼ş¸´Î»
+*@brief    é™€èºä»ªè½¯ä»¶å¤ä½
 *@retval   void
 **/
 static void GYRO_Reset_Module(void)

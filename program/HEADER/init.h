@@ -12,6 +12,7 @@
 void Init(void);
 void GPIO_INIT(void);//IO口初始化
 void Periph_Init(void);//外设初始化
+void Driver_Init(void);//驱动初始化
 
 
 //************************Debuger************************//

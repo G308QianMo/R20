@@ -20,9 +20,20 @@ void Init(void)
 {
 	GPIO_INIT();
 	Periph_Init();
+	Driver_Init();
+	Beep_ms(100);
+}
+/**
+ *@function Driver_Init
+ *@param    无
+ *@brief    用于驱动器等外部硬件的初始化管理
+ *@retval   无
+**/
+void Driver_Init(void)
+{
+	GYRO_Init();
 	delay_ms(1000);
 	ELMO_Init();
-	Beep_ms(100);
 }
 /**
  *@function GPIO_INIT
@@ -904,17 +915,7 @@ void Periph_Init(void)
 
 #endif
 
-
-
-
-
-
-
-
-
 }
-
-
 
 #if USE_BEEP
 /**
@@ -931,9 +932,6 @@ void Beep_ms(uint16_t ms)
 }
 
 #endif
-
-
-
 
 /**
  *@function Usart_SendByte
