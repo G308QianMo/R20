@@ -20,18 +20,9 @@ void Init(void)
 {
 	GPIO_INIT();
 	Periph_Init();
-	Driver_Init();
+	delay_ms(1000);
+	ELMO_Init();
 	Beep_ms(100);
-}
-/**
- *@function Driver_Init
- *@param    无
- *@brief    用于外部驱动器的初始化
- *@retval   无
-**/
-void Driver_Init(void)
-{
-  ELMO_Init();//elmo驱动器初始化
 }
 /**
  *@function GPIO_INIT
@@ -64,14 +55,14 @@ void GPIO_INIT(void)
 	//Beep: PA4	
 	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE);//使能GPIOA时钟
 
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_4;//BEEP对应引脚
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_7;//BEEP对应引脚
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;//普通输出模式
 	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;//推挽输出
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;//100MHz
 	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;//不上拉也不下拉
 	GPIO_Init(GPIOA, &GPIO_InitStructure);//初始化GPIO
 
-	GPIO_ResetBits(GPIOA, GPIO_Pin_4);	//GPIO置低，蜂鸣器关闭
+	GPIO_ResetBits(GPIOA, GPIO_Pin_7);	//GPIO置低，蜂鸣器关闭
 #endif
 
 #if USE_KEY
@@ -618,7 +609,7 @@ void Periph_Init(void)
 	TIM_ClearFlag(TIM1, TIM_FLAG_Update);//清除TIM的更新标志位
 	TIM_ITConfig(TIM1, TIM_IT_Update, DISABLE);	//禁用溢出中断
 	//Reset counter
-	TIM_SetCounter(TIM1, 0x00);
+	TIM_SetCounter(TIM1, 30000);
 	TIM_Cmd(TIM1, ENABLE);
 #endif
 #if USE_TIM_1 == 1
@@ -666,7 +657,7 @@ void Periph_Init(void)
 	TIM_ClearFlag(TIM2, TIM_FLAG_Update);//清除TIM的更新标志位
 	TIM_ITConfig(TIM2, TIM_IT_Update, DISABLE);	//禁用溢出中断
 	//Reset counter
-	TIM_SetCounter(TIM2, 0x00);
+	TIM_SetCounter(TIM2, 30000);
 	TIM_Cmd(TIM2, ENABLE);
 #endif
 #if USE_TIM_2 == 1	

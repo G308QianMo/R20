@@ -12,7 +12,7 @@
 void Init(void);
 void GPIO_INIT(void);//IO口初始化
 void Periph_Init(void);//外设初始化
-void Driver_Init(void);//电机驱动初始化
+
 
 //************************Debuger************************//
 void Usart_SendByte( USART_TypeDef * pUSARTx, uint8_t ch);	//任意串口发送一个字符
@@ -22,16 +22,16 @@ void Usart_SendByte( USART_TypeDef * pUSARTx, uint8_t ch);	//任意串口发送�
 #define 	USE_LED			1		//0=禁用,1=使用
 #define 	USE_BEEP		1		//0=禁用,1=使用
 #define 	USE_KEY			0		//0=禁用,1=使用
-#define		USE_CAN_1		0		//0=禁用,1=使用
-#define		USE_CAN_2		0		//0=禁用,1=使用
+#define		USE_CAN_1		1		//0=禁用,1=使用
+#define		USE_CAN_2		1		//0=禁用,1=使用
 #define 	USE_USART_1		1		//0=禁用,1=使用
 #define 	USE_USART_2		0		//0=禁用,1=使用
 #define 	USE_USART_3		0		//0=禁用,1=使用
 #define 	USE_UART_4		0		//0=禁用,1=使用
 #define 	USE_UART_5		0		//0=禁用,1=使用
 #define 	USE_USART_6		0		//0=禁用,1=使用
-#define		USE_TIM_1		0		//0=禁用,1=定时器中断，2=编码器
-#define		USE_TIM_2		0		//0=禁用,1=定时器中断，2=编码器
+#define		USE_TIM_1		2		//0=禁用,1=定时器中断，2=编码器
+#define		USE_TIM_2		2		//0=禁用,1=定时器中断，2=编码器
 #define		USE_TIM_3		0		//0=禁用,1=定时器中断，2=编码器
 #define		USE_TIM_4		0		//0=禁用,1=定时器中断，2=pwm输出
 #define		USE_TIM_5		0		//0=禁用,1=定时器中断，2=编码器
@@ -64,8 +64,8 @@ void Usart_SendByte( USART_TypeDef * pUSARTx, uint8_t ch);	//任意串口发送�
 #if USE_BEEP
 
 //************************Beep************************//
-#define BEEP_ON  GPIO_SetBits(GPIOA, GPIO_Pin_4)	//打开蜂鸣器
-#define BEEP_OFF GPIO_ResetBits(GPIOA, GPIO_Pin_4)	//关闭蜂鸣器
+#define BEEP_ON  GPIO_SetBits(GPIOA, GPIO_Pin_7)	//打开蜂鸣器
+#define BEEP_OFF GPIO_ResetBits(GPIOA, GPIO_Pin_7)	//关闭蜂鸣器
 void Beep_ms(uint16_t ms); 	//蜂鸣器鸣叫ms
 #endif
 

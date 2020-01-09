@@ -1,12 +1,11 @@
 #include "include.h"
-#include "basial_move.h"
 
 /**
 *@file    basial_move
 *@author  HYH
 *@version 1.0
 *@date    2020/1/4
-*@brief   åŸºæœ¬åº•å±‚æ§åˆ¶
+*@brief   »ù±¾µ×²ã¿ØÖÆ
 **/
 
 static int32_t Static_Wheel_Spd[4] = {0};
@@ -14,38 +13,38 @@ int32_t Stop_flag = 0;
 
 /**
 *@function Move_To_Point_Set
-*@param    X  Xåæ ‡
-           Y  Yåæ ‡
-           Alpha  è½¦èº«è§’åº¦
-           Speed  é€Ÿåº¦
-*@brief    ä»¥Alphaä¸ºè§’åº¦ï¼ŒSpeedä¸ºé€Ÿåº¦ï¼Œå‘(X,Y)èµ°ï¼Œä¹Ÿå¯ä»¥ç”¨(X,Y)è¡¨ç¤ºæ–¹å‘å‘é‡
+*@param    X  X×ø±ê
+           Y  Y×ø±ê
+           Alpha  ³µÉí½Ç¶È
+           Speed  ËÙ¶È
+*@brief    ÒÔAlphaÎª½Ç¶È£¬SpeedÎªËÙ¶È£¬Ïò(X,Y)×ß£¬Ò²¿ÉÒÔÓÃ(X,Y)±íÊ¾·½ÏòÏòÁ¿
 *@retval   NULL
 **/
 void Move_To_Point_Set(int32_t X, int32_t Y, float Alpha, int32_t Speed)
 {
-	
+	double Spd_Gain = 1;
     int32_t Spd[4] = {0};
-	int64_t Dir = 0,
-	        Vx = 0,
-	        Vy = 0;
+	int64_t V = 0,
+	        Vx = X,
+	        Vy = Y;
 	Alpha = Alpha + OFFSET_ANG;
-	Dir = my_sqrt(square(X) + square(Y));
-	if(Dir == 0)
+	V = my_sqrt(square(Vx) + square(Vy));
+	if(V == 0)
 	{
-		Vx = 0;
-		Vy = 0;
+		Spd_Gain = 0;
 	}
 	else 
 	{
-		Vx = X * ((double)Speed / (double)Dir);
-		Vy = Y * ((double)Speed / (double)Dir);
+		Spd_Gain = (double)Speed / (double)V;
 	}
+	Vx = X * Spd_Gain;
+    Vy = Y * Spd_Gain;
+	
 	
 	Spd[0] = my_cos(Alpha-135)*Vx + my_sin(Alpha-135)*Vy;
 	Spd[1] = my_cos(Alpha-45)*Vx + my_sin(Alpha-45)*Vy;
 	Spd[2] = my_cos(Alpha+45)*Vx + my_sin(Alpha+45)*Vy;
 	Spd[3] = my_cos(Alpha+135)*Vx + my_sin(Alpha+135)*Vy;
-		
 
 	
     Static_Wheel_Spd[0] += Spd[0];
@@ -56,8 +55,8 @@ void Move_To_Point_Set(int32_t X, int32_t Y, float Alpha, int32_t Speed)
 
 /**
 *@function MOVE_As_Circle
-*@param    Speed  é€Ÿåº¦
-*@brief    ä»¥Speedä¸ºé€Ÿåº¦åŸåœ°è½¬
+*@param    Speed  ËÙ¶È
+*@brief    ÒÔSpeedÎªËÙ¶ÈÔ­µØ×ª
 *@retval   NULL
 **/
 void MOVE_As_Circle(int32_t Speed)
@@ -78,7 +77,7 @@ void MOVE_As_Circle(int32_t Speed)
 /**
 *@function Wheel_Spd_To_Motor
 *@param    NULL
-*@brief    å°†Static_Wheel_Spdä¸­ç´¯åŠ åçš„é€Ÿåº¦ç»™åˆ°ç”µæœº
+*@brief    ½«Static_Wheel_SpdÖĞÀÛ¼ÓºóµÄËÙ¶È¸øµ½µç»ú
 *@retval   NULL
 **/
 void Wheel_Spd_To_Motor(void)
@@ -96,7 +95,7 @@ void Wheel_Spd_To_Motor(void)
 	
 	Max_Spd = my_max(my_max(my_max(my_abs(Spd[0]),my_abs(Spd[1])),my_abs(Spd[2])),my_abs(Spd[3]));
 
-	//é™é€Ÿ
+	//ÏŞËÙ
 	if (Max_Spd > MAX_SPEED)
     {
         Percent = (double)MAX_SPEED / (double)Max_Spd;
@@ -122,7 +121,7 @@ void Wheel_Spd_To_Motor(void)
 /**
 *@function Clear_Static_Wheel_Spd
 *@param    NULL
-*@brief    æ¸…é™¤Clear_Static_Wheel_Spdä¸­é€Ÿåº¦ï¼Œæ–¹ä¾¿å†æ¬¡ç´¯åŠ 
+*@brief    Çå³ıClear_Static_Wheel_SpdÖĞËÙ¶È£¬·½±ãÔÙ´ÎÀÛ¼Ó
 *@retval   NULL
 **/
 void Clear_Static_Wheel_Spd(void)
@@ -146,18 +145,18 @@ void STOP(void)
 }
 
 
-
+extern int32_t Global_Target_X,Global_Target_Y,Global_Target_Angle;
+extern EncodePointTypeDef global_gyro_location;
+int Print_Flag = 0;
 /**
 *@function Print
-*@param    Spd  å°±æ˜¯å„ç”µæœºé€Ÿåº¦
-           Print_Frequency  å‘é€æ•°æ®é¢‘ç‡ï¼Œè¶Šå¤§å‘çš„è¶Šæ…¢
-*@brief    å‘é€å„é¡¹ä¿¡æ¯
+*@param    Spd  ¾ÍÊÇ¸÷µç»úËÙ¶È
+           Print_Frequency  ·¢ËÍÊı¾İÆµÂÊ£¬Ô½´ó·¢µÄÔ½Âı
+*@brief    ·¢ËÍ¸÷ÏîĞÅÏ¢
 *@retval   NULL
 **/
 void Print(int32_t Spd[4], int Print_Frequency)
-{
-	int Print_Flag = 0;
-	
+{	
 	Print_Flag++; 
 	
 	if(Print_Flag == Print_Frequency)
@@ -165,7 +164,9 @@ void Print(int32_t Spd[4], int Print_Frequency)
 		printf("v1:  %d\tv2:  %d\tv3:  %d\tv4:  %d\t\r\n",Spd[0],Spd[1],Spd[2],Spd[3]);
 		printf("%d\t%d\t%d\r\n",
 		       (int)global_gyro_location.x,(int)global_gyro_location.y,(int)global_gyro_location.angle);
-		printf("targetX:  %d\ttargetY1:  %d\ttargetA:  %d\t\r\n",
+		printf("targetX:  %d\ttargetY:  %d\ttargetA:  %d\t\r\n",
 		        Global_Target_X,Global_Target_Y,Global_Target_Angle);
+		
+		Print_Flag = 0;
 	}
 }

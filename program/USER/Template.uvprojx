@@ -14,7 +14,7 @@
         <TargetCommonOption>
           <Device>STM32F407ZG</Device>
           <Vendor>STMicroelectronics</Vendor>
-          <PackID>Keil.STM32F4xx_DFP.2.5.0</PackID>
+          <PackID>Keil.STM32F4xx_DFP.1.0.8</PackID>
           <PackURL>http://www.keil.com/pack</PackURL>
           <Cpu>IROM(0x08000000,0x100000) IRAM(0x20000000,0x20000) IRAM2(0x10000000,0x10000) CPUTYPE("Cortex-M4") FPU2 CLOCK(168000000) ELITTLE</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
@@ -84,8 +84,6 @@
             <UserProg2Name></UserProg2Name>
             <UserProg1Dos16Mode>0</UserProg1Dos16Mode>
             <UserProg2Dos16Mode>0</UserProg2Dos16Mode>
-            <nStopA1X>0</nStopA1X>
-            <nStopA2X>0</nStopA2X>
           </AfterMake>
           <SelectedForBatchBuild>0</SelectedForBatchBuild>
           <SVCSIdString></SVCSIdString>
@@ -149,7 +147,7 @@
             <RestoreSysVw>1</RestoreSysVw>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
-          <TargetSelection>6</TargetSelection>
+          <TargetSelection>12</TargetSelection>
           <SimDlls>
             <CpuDll></CpuDll>
             <CpuDllArguments></CpuDllArguments>
@@ -163,7 +161,7 @@
             <PeripheralDll></PeripheralDll>
             <PeripheralDllArguments></PeripheralDllArguments>
             <InitializationFile></InitializationFile>
-            <Driver>Segger\JL2CM3.dll</Driver>
+            <Driver>BIN\CMSIS_AGDI.dll</Driver>
           </TargetDlls>
         </DebugOption>
         <Utilities>
@@ -363,8 +361,6 @@
             <uSurpInc>0</uSurpInc>
             <uC99>1</uC99>
             <useXO>0</useXO>
-            <v6Lang>0</v6Lang>
-            <v6LangP>0</v6LangP>
             <VariousControls>
               <MiscControls></MiscControls>
               <Define>STM32F40_41xxx,USE_STDPERIPH_DRIVER</Define>
@@ -673,11 +669,6 @@
               <FilePath>..\HEADER\actuator_control.h</FilePath>
             </File>
             <File>
-              <FileName>basial_move.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\HEADER\basial_move.h</FilePath>
-            </File>
-            <File>
               <FileName>protocol.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\HEADER\protocol.h</FilePath>
@@ -708,19 +699,14 @@
               <FilePath>..\HEADER\gyro.h</FilePath>
             </File>
             <File>
-              <FileName>elmo.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\HEADER\elmo.h</FilePath>
-            </File>
-            <File>
-              <FileName>pid_parameter.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\HEADER\pid_parameter.h</FilePath>
-            </File>
-            <File>
               <FileName>my_math.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\HEADER\my_math.h</FilePath>
+            </File>
+            <File>
+              <FileName>basial_move.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\HEADER\basial_move.h</FilePath>
             </File>
             <File>
               <FileName>pid_control.h</FileName>
@@ -728,9 +714,9 @@
               <FilePath>..\HEADER\pid_control.h</FilePath>
             </File>
             <File>
-              <FileName>stdint.h</FileName>
+              <FileName>pid_parameter.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\HEADER\stdint.h</FilePath>
+              <FilePath>..\HEADER\pid_parameter.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -776,11 +762,6 @@
               <FileName>readme.txt</FileName>
               <FileType>5</FileType>
               <FilePath>..\PROTOCOL\readme.txt</FilePath>
-            </File>
-            <File>
-              <FileName>elmo.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\PROTOCOL\elmo.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -835,21 +816,6 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>MISSION</GroupName>
-          <Files>
-            <File>
-              <FileName>mission.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\MISSION\mission.c</FilePath>
-            </File>
-            <File>
-              <FileName>readme.txt</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\MISSION\readme.txt</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
           <GroupName>ALGORITHM</GroupName>
           <Files>
             <File>
@@ -861,6 +827,21 @@
               <FileName>pid_parameter.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\ALGORITHM\pid_parameter.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>MISSION</GroupName>
+          <Files>
+            <File>
+              <FileName>mission.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\MISSION\mission.c</FilePath>
+            </File>
+            <File>
+              <FileName>readme.txt</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\MISSION\readme.txt</FilePath>
             </File>
           </Files>
         </Group>

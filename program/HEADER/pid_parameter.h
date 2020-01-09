@@ -5,28 +5,28 @@ typedef struct
 {
 	
 	int32_t P;
-    int32_t I;   //è¿™ä¸ªä¸€èˆ¬ä¹Ÿä¸ç”¨ï¼Œ0
+    int32_t I;   //Õâ¸öÒ»°ãÒ²²»ÓÃ£¬0
     int32_t D;
 
-    int32_t Out_Max;      //è¾“å‡ºé™å¹…
+    int32_t Out_Max;      //Êä³öÏŞ·ù
     int32_t Out_Min;
 	
-////ä¸‹é¢å››ä¸ªå›ºå®šçš„ï¼Œä¸ç”¨1000 0 30 20
-    int32_t Iteg_Max;     //ç§¯åˆ†é™å¹…
-    int32_t Dead_Zone;    //æ­»åŒº
-    int32_t Iteg_A;       //è¿ç»­å˜é€Ÿç§¯åˆ†A
-    int32_t Iteg_B;       //è¿ç»­å˜é€Ÿç§¯åˆ†B
+////ÏÂÃæËÄ¸ö¹Ì¶¨µÄ£¬²»ÓÃ1000 0 30 20
+    int32_t Iteg_Max;     //»ı·ÖÏŞ·ù
+    int32_t Dead_Zone;    //ËÀÇø
+    int32_t Iteg_A;       //Á¬Ğø±äËÙ»ı·ÖA
+    int32_t Iteg_B;       //Á¬Ğø±äËÙ»ı·ÖB
 	
 }PID_Parameter_Def;
 
 typedef struct
 {
 	
-    int32_t Set_Value;       //ç»™å®šå€¼
-    int32_t Real_Value[2];   //è¾“å‡ºå€¼(å®é™…å€¼)
-    int32_t Err[2];          //åå·®
-    int32_t PID_Output;      //PIDè¿ç®—ç»“æœ
-    int32_t Err_Iteg;        //è¯¯å·®ç§¯åˆ†
+    int32_t Set_Value;       //¸ø¶¨Öµ
+    int32_t Real_Value[2];   //Êä³öÖµ(Êµ¼ÊÖµ)
+    int32_t Err[2];          //Æ«²î
+    int32_t PID_Output;      //PIDÔËËã½á¹û
+    int32_t Err_Iteg;        //Îó²î»ı·Ö
 	
 }PID_Cal_Def;
 
@@ -38,14 +38,14 @@ typedef struct
 	
 }PID_Loop_Def;
 
-typedef struct      //PIDç¯å‚æ•°
+typedef struct      //PID»·²ÎÊı
 {
 
     PID_Loop_Def PID_Angle;
 	PID_Loop_Def PID_X;
     PID_Loop_Def PID_Y;
 
-}PID_Def;   //PIDç¯å‚æ•°
+}PID_Def;   //PID»·²ÎÊı
 
 enum now_last
 {
@@ -53,8 +53,8 @@ enum now_last
     Now = 1,
     Last = 0,
 	
-};//è®¡ç®—æ—¶ç”¨çš„
+};//¼ÆËãÊ±ÓÃµÄ
 
-extern PID_Def Global_PID_Parameter;//æ–¹ä¾¿å¿˜è®°Externçš„æ—¶å€™
+extern PID_Def Global_PID_Parameter;//·½±ãÍü¼ÇExternµÄÊ±ºò
 
 #endif

@@ -5,18 +5,18 @@
 *@author  HYH
 *@version 1.0
 *@date    2020/1/4
-*@brief   PIDæ§åˆ¶
+*@brief   PID¿ØÖÆ
 **/
 
-extern __IO EncodePointTypeDef global_gyro_location; //è·å–å½“å‰ä½ç½®
+extern EncodePointTypeDef global_gyro_location;  //»ñÈ¡µ±Ç°Î»ÖÃ
 
 /**
 *@function PID_Set_Value_Angle
-*@param    Angle è§’åº¦ç›®æ ‡å€¼
-*@brief    ç»™å®šç›®æ ‡å€¼
+*@param    Angle ½Ç¶ÈÄ¿±êÖµ
+*@brief    ¸ø¶¨Ä¿±êÖµ
 *@retval   NULL
 **/
-//ä¸‹é¢ä¸‰ä¸ªä¸€ä¸ªç”¨æ³•ï¼Œä¸­é—´å‡½æ•°
+//ÏÂÃæÈı¸öÒ»¸öÓÃ·¨£¬ÖĞ¼äº¯Êı
 void PID_Set_Value_Angle(int32_t Angle)
 {
 	Global_PID_Parameter.PID_Angle.Calculate.Set_Value = Angle;
@@ -32,48 +32,50 @@ void PID_Set_Value_Y(int32_t Y)
 	Global_PID_Parameter.PID_Y.Calculate.Set_Value = Y;
 }
 
-int32_t Global_Target_X = 0,Global_Target_Y = 0,Global_Target_Angle = 0;//ç›®æ ‡å€¼
+int32_t Global_Target_X = 0,Global_Target_Y = 0,Global_Target_Angle = 0;//Ä¿±êÖµ
 
 /**
 *@function PID_Loop_X
 *@param    NULL
-*@brief    PIDå®ç°
+*@brief    PIDÊµÏÖ
 *@retval   NULL
 **/
-//ä¸‹é¢ä¸‰ä¸ªä½œç”¨ä¸€æ ·
+//ÏÂÃæÈı¸ö×÷ÓÃÒ»Ñù
 void PID_Loop_X(void)
 {
-	int32_t PID_Output;
+	int32_t PID_Output_X;
 	
 	PID_Set_Value_X(Global_Target_X);
-	PID_Output = PID_Cal(&Global_PID_Parameter.PID_X,global_gyro_location.x);
-	Move_To_Point_Set(1,0,global_gyro_location.angle,PID_Output);
+	PID_Output_X = PID_Cal(&Global_PID_Parameter.PID_X,global_gyro_location.x);
+	Move_To_Point_Set(1,0,global_gyro_location.angle,PID_Output_X);
 }	
 
 void PID_Loop_Y(void)
 {
-	int32_t PID_Output;
+	int32_t PID_Output_Y;
 	
 	PID_Set_Value_Y(Global_Target_Y);
-	PID_Output = PID_Cal(&Global_PID_Parameter.PID_Y,global_gyro_location.y);
-	Move_To_Point_Set(0,1,global_gyro_location.angle,PID_Output);
+	PID_Output_Y = PID_Cal(&Global_PID_Parameter.PID_Y,global_gyro_location.y);
+	Move_To_Point_Set(0,1,global_gyro_location.angle,PID_Output_Y);
 }
 
 void PID_Loop_angle(void)
 {
-	int32_t PID_Output;
+	int32_t PID_Output_A;
 	
 	PID_Set_Value_X(Global_Target_Angle);
-	PID_Output = PID_Cal(&Global_PID_Parameter.PID_Angle,global_gyro_location.angle);
-	MOVE_As_Circle(PID_Output);
+	PID_Output_A = PID_Cal(&Global_PID_Parameter.PID_Angle,global_gyro_location.angle);
+	MOVE_As_Circle(PID_Output_A);
+	
+//	printf("OUT:%d\t A:%f\n",PID_Output_A,global_gyro_location.angle);
 }
 
 /**
 *@function PID_Calculate
-*@param    *PID_Loop  å®šä¹‰ä¸ºPID_Loop_Defçš„ç»“æ„ä½“çš„åœ°å€
-           Real_Value  ç ç›˜æ¥æ”¶åˆ°çš„å½“å‰çœŸå®å€¼
-*@brief    PIDè®¡ç®—
-*@retval   PIDè¾“å‡º
+*@param    *PID_Loop  ¶¨ÒåÎªPID_Loop_DefµÄ½á¹¹ÌåµÄµØÖ·
+           Real_Value  ÂëÅÌ½ÓÊÕµ½µÄµ±Ç°ÕæÊµÖµ
+*@brief    PID¼ÆËã
+*@retval   PIDÊä³ö
 **/
 int32_t PID_Cal(PID_Loop_Def * PID_Loop,int32_t Real_Value)
 {
@@ -107,7 +109,7 @@ int32_t PID_Cal(PID_Loop_Def * PID_Loop,int32_t Real_Value)
     UP = PID_Loop->Calculate.Err[Now] * PID_Loop->Parameter.P;
     UI = PID_Loop->Calculate.Err_Iteg * PID_Loop->Parameter.I;
     UD = (PID_Loop->Calculate.Real_Value[Last] - PID_Loop->Calculate.Real_Value[Now]) * PID_Loop->Parameter.D; 
-
+ //   	printf("p:%d\ti:%d\td:%d\n",UP,UI,UD);
     PID_Loop->Calculate.PID_Output = UP / 100 + UI / 100 + UD/100;
 		
     
@@ -118,15 +120,17 @@ int32_t PID_Cal(PID_Loop_Def * PID_Loop,int32_t Real_Value)
 
     PID_Loop->Calculate.Real_Value[Last] = PID_Loop->Calculate.Real_Value[Now];            
     PID_Loop->Calculate.Err[Last] = PID_Loop->Calculate.Err[Now];                          
-
+//	printf("OUT:%d\n",PID_Loop->Calculate.PID_Output);
     return PID_Loop->Calculate.PID_Output;
+	
+
 }
 
 /**
 *@function PID_Setup
-*@param    å¦‚å­—é¢ç†è§£ï¼Œè®¾ç½®PIDå‚æ•°
-*@brief    è®¾ç½®PIDå‚æ•°
-           ç¼ºçœçš„å‚æ•°å–pid_parameter.cé‡Œé¢çœ‹æ³¨è§£ï¼Œéƒ½ä¸ç”¨çš„ï¼Œè®¾ç½®çš„é»˜è®¤å€¼
+*@param    Èç×ÖÃæÀí½â£¬ÉèÖÃPID²ÎÊı
+*@brief    ÉèÖÃPID²ÎÊı
+           È±Ê¡µÄ²ÎÊıÈ¡pid_parameter.cÀïÃæ¿´×¢½â£¬¶¼²»ÓÃµÄ£¬ÉèÖÃµÄÄ¬ÈÏÖµ
 *@retval   NULL
 **/
 void PID_Setup(int32_t Angle_P,  int32_t Angle_D,  int32_t Angle_Max,  int32_t Angle_Min,

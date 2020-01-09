@@ -51,17 +51,22 @@ void CAN1_RX0_IRQHandler(void)
  *@retval   none
 **/
 #if USE_CAN_2
-#if CAN2_RX_INT_ENABLE	//使能RX0中断		    
+#if CAN2_RX_INT_ENABLE	//使能RX0中断		
+int LED_Flag = 0;
+extern int count;
 void CAN2_RX1_IRQHandler(void)
 {
-	CanRxMsg RxMessage;
-	if (CAN_GetITStatus(CAN2, CAN_IT_FMP1) != RESET)	//判断中断挂起
-	{
-		CAN_Receive(CAN2, CAN_FIFO1, &RxMessage);	//收数据，这里注意要选择FIFO
-		//*******************************中断服务函数开始******************************//
+
+//	CanRxMsg RxMessage;
+//	if (CAN_GetITStatus(CAN2, CAN_IT_FMP1) != RESET)	//判断中断挂起
+//	{
+//		CAN_Receive(CAN2, CAN_FIFO1, &RxMessage);	//收数据，这里注意要选择FIFO
+		//*******************************中断服务函数开始******************************//.
+
+        GYRO_Get_Location_Param();
 
 		//*******************************中断服务函数结束******************************//
-	}
+//	}
 }
 #endif
 #endif
@@ -73,7 +78,7 @@ void CAN2_RX1_IRQHandler(void)
  *@brief    USART1中断服务函数
  *@retval   none
 **/
-#if EN_USART1_RX
+#if USE_USART_1
 #if USART1_RX_ENABLE
 void USART1_IRQHandler(void)
 {
