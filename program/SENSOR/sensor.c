@@ -16,6 +16,7 @@ double global_coordX = 0, global_coordY = 0;
 *@brief    得到传感器的值(陀螺仪、编码器、激光)
 *@retval   void
 **/
+
 void GYRO_Get_Location_Param(void)
 {
 	      uDataConvert32TypeDef temp;
@@ -60,7 +61,7 @@ void GYRO_Get_Location_Param(void)
 											global_enc_x = global_gyro_pulse_x - 30000;
 
 											TIM2->CNT = 30000;
-											TIM5->CNT = 30000;
+											TIM1->CNT = 30000;
 
 											global_gyro_angle = global_gyro_angle_now / 2 + global_gyro_angle_last / 2;
 											global_enc_x = global_enc_x + (float)global_enc_x * my_cos(global_gyro_angle)/2 - (float)global_enc_y * my_sin(global_gyro_angle);//- 94.46;
