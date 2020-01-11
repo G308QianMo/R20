@@ -6,9 +6,25 @@
 #include "usart.h"
 #include "init.h"
 #include "actuator_control.h"
-#include "basial_move.h"
 #include "protocol.h"
 #include "sensor.h"
 #include "interrupt.h"
+#include <stdint.h>
+#include <string.h>
+//zhaohaining
+#include "vect.h"
+#include "gyro.h"
+#include "my_math.h"
+
+#include "basial_move.h"
+#include "pid_control.h"
+#include "pid_parameter.h"
+#include "elmo.h"
+
+/**OS***/
+
+#include "os_app_hooks.h"
+#include "ucos_init.h"
+#include "ucos_app.h"
 
 #endif
