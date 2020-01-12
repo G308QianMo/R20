@@ -21,15 +21,6 @@ void mission_temp(void)
 //	 
 //	 Wheel_Spd_To_Motor();
 	   
-
-//	 if(LED_Flag < 100)
-//		 LED0_ON;
-//	 else if(LED_Flag >=100 && LED_Flag < 200)
-//		 LED0_OFF;
-//	 else if(LED_Flag >= 200)
-//		 LED_Flag = 0;	 
-//	 
-//	 LED_Flag++;
         if(Read_KEY_1 == Bit_RESET)
 		{
 			motorAngle+=15*7;
