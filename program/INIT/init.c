@@ -34,6 +34,7 @@ void Driver_Init(void)
 	GYRO_Init();
 	delay_ms(1000);
 	ELMO_Init();
+    m3508_PID_Para_Init(0.048,0.01,1.36,0.054,0.1,8.4);
 }
 /**
  *@function GPIO_INIT
@@ -722,15 +723,15 @@ void Periph_Init(void)
 	// 通用控制定时器时钟源TIMxCLK = HCLK/2=84MHz 
 
 	NVIC_InitStructure.NVIC_IRQChannel = TIM3_IRQn;// 设置中断来源
-	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = TIM3_IRQPrePri;	// 设置抢占优先级
-	NVIC_InitStructure.NVIC_IRQChannelSubPriority = TIM3_IRQSubPri;	// 设置子优先级
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;	// 设置抢占优先级
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 3;	// 设置子优先级
 	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
 	NVIC_Init(&NVIC_InitStructure);
 
 	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM3, ENABLE);
 
-	TIM_TimeBaseStructure.TIM_Period = TIM3_Period;
-	TIM_TimeBaseStructure.TIM_Prescaler = TIM3_Prescaler;
+	TIM_TimeBaseStructure.TIM_Period = 49;
+	TIM_TimeBaseStructure.TIM_Prescaler = 8399;
 	TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1;
 	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;	// 计数方式
 	TIM_TimeBaseInit(TIM3, &TIM_TimeBaseStructure);	// 初始化定时器TIMx, x[1,8]

@@ -11,6 +11,7 @@
 #include "interrupt.h"
 #include <stdint.h>
 #include <string.h>
+#include <mission.h>
 
 //zhaohaining
 #include "vect.h"
@@ -20,6 +21,9 @@
 #include "basial_move.h"
 #include "pid_control.h"
 #include "pid_parameter.h"
+#include "m3508_control.h"
 #include "elmo.h"
 
+
+#define abs(x) ((x)>0? (x):(-(x)))
 #endif

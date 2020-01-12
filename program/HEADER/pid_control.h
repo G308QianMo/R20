@@ -6,7 +6,7 @@
 void PID_Set_Value_Angle(int32_t Angle);
 void PID_Set_Value_X(int32_t X);
 void PID_Set_Value_Y(int32_t Y);
-
+void m3508_PID_Para_Init(double Kp_Velo,double Ki_Velo,double Kd_Velo,double Kp_Pos,double Ki_Pos,double Kd_Pos);
 
 void PID_Loop_X(void);  
 void PID_Loop_Y(void);

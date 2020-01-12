@@ -37,7 +37,76 @@ void CAN1_RX0_IRQHandler(void)
 	{
 		CAN_Receive(CAN1, CAN_FIFO0, &RxMessage);	//收数据，这里注意要选择FIFO
 		//*******************************中断服务函数开始******************************//
+        switch(RxMessage.StdId)
+        {
+            //0x201~0x208对应8个m3508电机及8个c620电调，电调id范围为1~8。
+            //通过can1读取8个电机的转子机械角度（0-8191），转速（单位rpm），电流（单位mA），转子温度（单位℃）
+            case 0x201:
+                Rotor_Read_Now[0].Angle = ((u16)RxMessage.Data[0] << 8) | (u16)(RxMessage.Data[1]);
+                Rotor_Read_Now[0].Speed = ((u16)RxMessage.Data[2] << 8) | (u16)(RxMessage.Data[3]);
+                Rotor_Read_Now[0].Cur = ((u16)RxMessage.Data[4] << 8) | (u16)(RxMessage.Data[5]);
+                Rotor_Read_Now[0].Temp  = RxMessage.Data[6];
+                Rotor_Position_Read(0);
+                break;
 
+            case 0x202:
+                Rotor_Read_Now[1].Angle = ((u16)RxMessage.Data[0] << 8) | (u16)(RxMessage.Data[1]);
+                Rotor_Read_Now[1].Speed = ((u16)RxMessage.Data[2] << 8) | (u16)(RxMessage.Data[3]);
+                Rotor_Read_Now[1].Cur = ((u16)RxMessage.Data[4] << 8) | (u16)(RxMessage.Data[5]);
+                Rotor_Read_Now[1].Temp  = RxMessage.Data[6];
+                Rotor_Position_Read(1);
+                break;
+
+            case 0x203:
+                Rotor_Read_Now[2].Angle = ((u16)RxMessage.Data[0] << 8) | (u16)(RxMessage.Data[1]);
+                Rotor_Read_Now[2].Speed = ((u16)RxMessage.Data[2] << 8) | (u16)(RxMessage.Data[3]);
+                Rotor_Read_Now[2].Cur = ((u16)RxMessage.Data[4] << 8) | (u16)(RxMessage.Data[5]);
+                Rotor_Read_Now[2].Temp  = RxMessage.Data[6];
+                Rotor_Position_Read(2);
+                break;
+
+            case 0x204:
+                Rotor_Read_Now[3].Angle = ((u16)RxMessage.Data[0] << 8) | (u16)(RxMessage.Data[1]);
+                Rotor_Read_Now[3].Speed = ((u16)RxMessage.Data[2] << 8) | (u16)(RxMessage.Data[3]);
+                Rotor_Read_Now[3].Cur = ((u16)RxMessage.Data[4] << 8) | (u16)(RxMessage.Data[5]);
+                Rotor_Read_Now[3].Temp  = RxMessage.Data[6];
+                Rotor_Position_Read(3);
+                break;
+            case 0x205:
+                Rotor_Read_Now[4].Angle = ((u16)RxMessage.Data[0] << 8) | (u16)(RxMessage.Data[1]);
+                Rotor_Read_Now[4].Speed = ((u16)RxMessage.Data[2] << 8) | (u16)(RxMessage.Data[3]);
+                Rotor_Read_Now[4].Cur = ((u16)RxMessage.Data[4] << 8) | (u16)(RxMessage.Data[5]);
+                Rotor_Read_Now[4].Temp  = RxMessage.Data[6];
+                Rotor_Position_Read(4);
+                break;
+
+            case 0x206:
+                Rotor_Read_Now[5].Angle = ((u16)RxMessage.Data[0] << 8) | (u16)(RxMessage.Data[1]);
+                Rotor_Read_Now[5].Speed = ((u16)RxMessage.Data[2] << 8) | (u16)(RxMessage.Data[3]);
+                Rotor_Read_Now[5].Cur = ((u16)RxMessage.Data[4] << 8) | (u16)(RxMessage.Data[5]);
+                Rotor_Read_Now[5].Temp  = RxMessage.Data[6];
+                Rotor_Position_Read(5);
+                break;
+
+            case 0x207:
+                Rotor_Read_Now[6].Angle = ((u16)RxMessage.Data[0] << 8) | (u16)(RxMessage.Data[1]);
+                Rotor_Read_Now[6].Speed = ((u16)RxMessage.Data[2] << 8) | (u16)(RxMessage.Data[3]);
+                Rotor_Read_Now[6].Cur = ((u16)RxMessage.Data[4] << 8) | (u16)(RxMessage.Data[5]);
+                Rotor_Read_Now[6].Temp  = RxMessage.Data[6];
+                Rotor_Position_Read(6);
+                break;
+
+            case 0x208:
+                Rotor_Read_Now[7].Angle = ((u16)RxMessage.Data[0] << 8) | (u16)(RxMessage.Data[1]);
+                Rotor_Read_Now[7].Speed = ((u16)RxMessage.Data[2] << 8) | (u16)(RxMessage.Data[3]);
+                Rotor_Read_Now[7].Cur = ((u16)RxMessage.Data[4] << 8) | (u16)(RxMessage.Data[5]);
+                Rotor_Read_Now[7].Temp  = RxMessage.Data[6];
+                Rotor_Position_Read(7);
+                break;
+
+            default:
+                break;
+        }
 		//*******************************中断服务函数结束******************************//
 	}
 }
@@ -254,13 +323,36 @@ void  TIM2_IRQHandler(void)
  *@brief    TIM3中断服务函数
  *@retval   none
 **/
+extern int16_t g_m3508CtrlFlag;
 #if USE_TIM_3 == 1
 void  TIM3_IRQHandler(void)
 {
 	if (TIM_GetITStatus(TIM3, TIM_IT_Update) != RESET)
 	{
 		//*******************************中断服务函数开始******************************//
-
+        if(g_m3508CtrlFlag == 3)
+        {
+            for(int id=0;id<8;id++)
+            {
+                M3508_Pos_Velo_Control(id);                 
+            }                  
+        }
+        else if(g_m3508CtrlFlag == 1)
+        {
+            for(int id=0;id<8;id++)
+            {
+                M3508_Pos_Control(id);
+            }
+        }
+        else if(g_m3508CtrlFlag == 2)
+        {
+            for(int id=0;id<8;id++)
+            {
+                M3508_Vel_Control(id);                
+            } 
+        }
+        m3508_control_cur0_3(Current[0],Current[1],Current[2],Current[3]);
+        m3508_control_cur4_7(Current[4],Current[5],Current[6],Current[7]);
 		//*******************************中断服务函数结束******************************//
 		TIM_ClearITPendingBit(TIM3, TIM_IT_Update);
 	}

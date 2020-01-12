@@ -152,3 +152,20 @@ void PID_Setup(int32_t Angle_P,  int32_t Angle_D,  int32_t Angle_Max,  int32_t A
 	Global_PID_Parameter.PID_Y.Parameter.Out_Max = Y_Max;
 	Global_PID_Parameter.PID_Y.Parameter.Out_Min = Y_Min;	
 }
+
+void m3508_PID_Para_Init(double Kp_Velo,double Ki_Velo,double Kd_Velo,double Kp_Pos,double Ki_Pos,double Kd_Pos)
+{
+	for(int id=0;id<8;id++)
+	{
+        Pos_PID_Cal[id].NextPoint = Rotor_Read_Now[id].Pos;
+		Pos_PID_Cal[id].SumErrLimit = 2000;
+		Pos_PID_Cal[id].PID.Proportion = Kp_Pos;
+		Pos_PID_Cal[id].PID.Integral   = Ki_Pos;
+		Pos_PID_Cal[id].PID.Derivative = Kd_Pos;
+
+        Velo_PID_Cal[id].SumErrLimit = 2000;
+        Velo_PID_Cal[id].PID.Proportion = Kp_Velo;
+        Velo_PID_Cal[id].PID.Integral   = Ki_Velo;
+        Velo_PID_Cal[id].PID.Derivative = Kd_Velo;
+	}
+}
