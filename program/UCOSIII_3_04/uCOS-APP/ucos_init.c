@@ -82,12 +82,7 @@ void OS_APP_init(OS_ERR  *p_err)
                  (OS_ERR 	* )&p_err);				//存放该函数错误时的返回值
 								 
 	//创建定时器任务
-	OSTmrStart(&TIMR1,&err);	//开启定时器1
-	OSTmrStart(&TIMR2,&err);	//开启定时器2
- 
-	//可根据需要随时关闭或者开启定时器任务
-	OSTmrStop(&TIMR1,OS_OPT_TMR_NONE,0,&err);	//关闭定时器1
-	OSTmrStop(&TIMR2,OS_OPT_TMR_NONE,0,&err);	//关闭定时器2					 
+				 
 								 
 								 
 }
@@ -113,6 +108,26 @@ void start_task(void *p_arg)
 #endif		
 	
 	OS_CRITICAL_ENTER();	//进入临界区，开始创建任务
+	
+						//创建定时器1
+	OSTmrCreate((OS_TMR		*)&TIMR1
+								 ,		//定时器1
+                (CPU_CHAR	*)"TIMR1",		//定时器名字
+                (OS_TICK	 )20,			//20*10=200ms
+                (OS_TICK	 )100,          //100*10=1000ms
+                (OS_OPT		 )OS_OPT_TMR_PERIODIC, //周期模式
+                (OS_TMR_CALLBACK_PTR)TIMR1_CallBack,//定时器1回调函数
+                (void	    *)0,			//参数为0
+                (OS_ERR	    *)&err);		//返回的错误码					
+	//创建定时器2
+	OSTmrCreate((OS_TMR		*)&TIMR2,		
+                (CPU_CHAR	*)"TIMR2",		
+                (OS_TICK	 )200,			//200*10=2000ms	
+                (OS_TICK	 )0,   					
+                (OS_OPT		 )OS_OPT_TMR_ONE_SHOT, 	//单次定时器
+                (OS_TMR_CALLBACK_PTR)TIMR2_CallBack,	//定时器2回调函数
+                (void	    *)0,			
+                (OS_ERR	    *)&err);	
 	//创建LED0任务
 	OSTaskCreate(  (OS_TCB 	* )&Led0TaskTCB,		
 				         (CPU_CHAR	* )"led0 task", 		
@@ -173,30 +188,19 @@ void start_task(void *p_arg)
                  (OS_OPT      )OS_OPT_TASK_STK_CHK|OS_OPT_TASK_STK_CLR, 
                  (OS_ERR 	* )&err);
 								 
-								 
-						//创建定时器1
-	OSTmrCreate((OS_TMR		*)&TIMR1
-								 ,		//定时器1
-                (CPU_CHAR	*)"TIMR1",		//定时器名字
-                (OS_TICK	 )20,			//20*10=200ms
-                (OS_TICK	 )100,          //100*10=1000ms
-                (OS_OPT		 )OS_OPT_TMR_PERIODIC, //周期模式
-                (OS_TMR_CALLBACK_PTR)TIMR1_CallBack,//定时器1回调函数
-                (void	    *)0,			//参数为0
-                (OS_ERR	    *)&err);		//返回的错误码					
-	//创建定时器2
-	OSTmrCreate((OS_TMR		*)&TIMR2,		
-                (CPU_CHAR	*)"TIMR1",		
-                (OS_TICK	 )200,			//200*10=2000ms	
-                (OS_TICK	 )0,   					
-                (OS_OPT		 )OS_OPT_TMR_ONE_SHOT, 	//单次定时器
-                (OS_TMR_CALLBACK_PTR)TIMR2_CallBack,	//定时器2回调函数
-                (void	    *)0,			
-                (OS_ERR	    *)&err);	
-								
-	OS_CRITICAL_ENTER();	//进入临界区
-								 
+  								
+
 	OS_TaskSuspend((OS_TCB*)&StartTaskTCB,&err);		//挂起开始任务
+								 
+	OSTmrStart(&TIMR1,&err);	//开启定时器1
+	OSTmrStart(&TIMR2,&err);	//开启定时器2
+	
+	/****软件定时器*****/
+
+ 
+	//可根据需要随时关闭或者开启定时器任务
+//	OSTmrStop(&TIMR1,OS_OPT_TMR_NONE,0,&err);	//关闭定时器1
+//	OSTmrStop(&TIMR2,OS_OPT_TMR_NONE,0,&err);	//关闭定时器2	
 								 
 	OS_CRITICAL_EXIT();	//退出临界区，创建任务完成
 }

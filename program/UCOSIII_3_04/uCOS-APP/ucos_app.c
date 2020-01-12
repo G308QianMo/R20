@@ -83,15 +83,21 @@ void Wheel_Motor_task(void *p_arg)
 //定时器1回调函数
 void TIMR1_CallBack(void *p_tmr, void *p_arg)
 {
-
+		OS_ERR err;
+	  p_arg = p_arg;
+	
+	  PCout(2)=!PCout(2);
 
 }	
 
 //定时器2回调函数
 void TIMR2_CallBack(void *p_tmr, void *p_arg)	
 {
+		OS_ERR err;
+	  p_arg = p_arg;
 	
-	
+	  PCout(3)=0;
+
 	
 }
 	
