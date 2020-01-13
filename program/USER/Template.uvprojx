@@ -723,6 +723,11 @@
               <FileType>5</FileType>
               <FilePath>..\HEADER\elmo.h</FilePath>
             </File>
+            <File>
+              <FileName>m3508_control.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\HEADER\m3508_control.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -772,6 +777,11 @@
               <FileName>elmo.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\PROTOCOL\elmo.c</FilePath>
+            </File>
+            <File>
+              <FileName>m3508_control.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\PROTOCOL\m3508_control.c</FilePath>
             </File>
           </Files>
         </Group>
