@@ -19,6 +19,9 @@
 #include "gyro.h"
 #include "my_math.h"
 
+#include "ANO_DT_User_Settings.h"
+#include "ANO_DT.h"
+
 #include "basial_move.h"
 #include "pid_control.h"
 #include "pid_parameter.h"
