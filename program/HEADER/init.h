@@ -39,7 +39,8 @@ void Usart_SendByte( USART_TypeDef * pUSARTx, uint8_t ch);	//任意串口发送�
 #define		USE_TIM_6		0		//0=禁用,1=定时器中断
 #define		USE_TIM_7		0		//0=禁用,1=定时器中断
 #define		USE_TIM_8		0		//0=禁用,1=定时器中断
-
+#define		USE_IO_INT_1    1		//0=禁用,1=使用外部中断io口1
+#define     USE_LEG         1       //0=禁用,1=使用腿
 
 
 
@@ -59,15 +60,20 @@ void Usart_SendByte( USART_TypeDef * pUSARTx, uint8_t ch);	//任意串口发送�
 #define LED1_OFF GPIO_SetBits(GPIOC, GPIO_Pin_1)
 #define LED2_OFF GPIO_SetBits(GPIOC, GPIO_Pin_2)
 #define LED3_OFF GPIO_SetBits(GPIOC, GPIO_Pin_3)
-
+#define LED0 PCout(0)
 #endif
 
 #if USE_BEEP
 
 //************************Beep************************//
-#define BEEP_ON  GPIO_SetBits(GPIOA, GPIO_Pin_7)	//打开蜂鸣器
-#define BEEP_OFF GPIO_ResetBits(GPIOA, GPIO_Pin_7)	//关闭蜂鸣器
+#define BEEP_ON  GPIO_SetBits(GPIOA, GPIO_Pin_4)	//打开蜂鸣器
+#define BEEP_OFF GPIO_ResetBits(GPIOA, GPIO_Pin_4)	//关闭蜂鸣器
 void Beep_ms(uint16_t ms); 	//蜂鸣器鸣叫ms
+#endif
+
+#if USE_LEG 
+#define LEG_REACH GPIO_ReadInputDataBit(GPIOE,GPIO_Pin_0)
+#define RELAY PCout(12)
 #endif
 
 #if USE_KEY

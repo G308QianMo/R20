@@ -6,39 +6,47 @@ extern int32_t Global_Target_X,Global_Target_Y,Global_Target_Angle;
 int print_flag=0;
 int motorAngle=0;
 void mission_temp(void)
-{
-//    Global_Target_X = 500;
-//	Global_Target_Y = 0;
-//	Global_Target_Angle = 0; 
-//	   
-//	PID_Setup(1000,200,1000,-1000,
-//                      500,100,500,-500,
-//                      500,100,500,-500);  
-	 
-//	 PID_Loop_X();  
-//	 PID_Loop_Y();
-//	 PID_Loop_angle();  
-//	 
-//	 Wheel_Spd_To_Motor();
-	   
-        if(Read_KEY_1 == Bit_RESET)
-		{
-			motorAngle+=15*7;
-            if(motorAngle>360*5*7)
+{	   
+        if(Read_KEY_1 == Bit_RESET)//收线
+		{			
+            M3508_Pos_Velo_Set(3,350,360*4.85*7);//电机按350RPM速度回收腿，至多转4.85圈
+            Beep_ms(500);
+            delay_ms(500);
+            while(1)
             {
-                motorAngle=360*5*7;
-            }
-            M3508_Pos_Velo_Set(5,200,motorAngle);
+                if(!LEG_REACH||Read_KEY_1 == Bit_RESET)//限位开关被压下或按下key1，电机立刻停止
+                {
+                    delay_ms(10);
+                    if(!LEG_REACH||Read_KEY_1 == Bit_RESET)
+                    {
+                        M3508_Vel_Set(3,0);
+                        Beep_ms(500);
+                        RELAY = 1;//电磁铁起动
+                        break;
+                    }
+                }                
+            }           
 		}
-		if(Read_KEY_2 == Bit_RESET)
+		if(Read_KEY_2 == Bit_RESET)//放线、踢
 		{
-			motorAngle-=15*7;
-            if(motorAngle<-360*5*7)
+            M3508_Pos_Velo_Set(3,-470,0);//电机全速放线
+            Beep_ms(500);
+            delay_ms(1000);
+            while(1)
             {
-                motorAngle=-360*5*7;
-            }
-            M3508_Pos_Velo_Set(5,-200,motorAngle);
-		}
-        
-	 delay_ms(100);
+                if(0||Read_KEY_2 == Bit_RESET)//按下key2，电磁铁释放，踢
+                {
+                    delay_ms(10);
+                    {
+                       if(0||Read_KEY_2 == Bit_RESET)
+                        Beep_ms(5000);
+                        delay_ms(500);
+                        RELAY = 0;
+                        //电磁铁释放
+                        break; 
+                    }
+                    
+                }                
+            } 
+		}       	 
 }

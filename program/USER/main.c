@@ -10,7 +10,9 @@ int main(void)
  int LED_Flag = 0;
   while(1)
  {
+     
      mission_temp(); 
+     delay_ms(100);
  }
 }
 

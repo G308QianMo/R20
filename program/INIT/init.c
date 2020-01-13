@@ -47,6 +47,29 @@ void GPIO_INIT(void)
 
 	GPIO_InitTypeDef  GPIO_InitStructure;
 
+#if USE_LEG     //包括继电器、限位开关的io口初始化。io口先暂定这些，也先按leg写着，之后再改
+	//************************LEG_INIT************************//
+	//LEG: PC12(继电器，高电平触发) PE0（限位开关，导通拉低）
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOC, ENABLE);//使能GPIOE时钟
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_12;//LEG对应引脚
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;	//普通输出模式
+	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;//推挽输出
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;//100MHz
+	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_DOWN;//下拉
+	GPIO_Init(GPIOC, &GPIO_InitStructure);//初始化
+ 
+	GPIO_ResetBits(GPIOC, GPIO_Pin_12);//GPIO设置低，继电器断开，电磁铁不启动
+    
+    RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOE, ENABLE);//使能GPIOE时钟
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0;//LEG对应引脚
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;	//普通输入模式
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;//100MHz
+	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;//上拉
+	GPIO_Init(GPIOE, &GPIO_InitStructure);//初始化
+
+	
+#endif
+    
 #if USE_LED
 	//************************LED_INIT************************//
 	//LED: PC0 PC1 PC2 PC3
@@ -67,14 +90,14 @@ void GPIO_INIT(void)
 	//Beep: PA4	
 	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE);//使能GPIOA时钟
 
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_7;//BEEP对应引脚
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_4;//BEEP对应引脚
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;//普通输出模式
 	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;//推挽输出
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;//100MHz
 	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;//不上拉也不下拉
 	GPIO_Init(GPIOA, &GPIO_InitStructure);//初始化GPIO
 
-	GPIO_ResetBits(GPIOA, GPIO_Pin_7);	//GPIO置低，蜂鸣器关闭
+	GPIO_ResetBits(GPIOA, GPIO_Pin_4);	//GPIO置低，蜂鸣器关闭
 #endif
 
 #if USE_KEY
