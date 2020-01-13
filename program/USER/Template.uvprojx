@@ -17,7 +17,6 @@
           <Device>STM32F407ZG</Device>
           <Vendor>STMicroelectronics</Vendor>
           <PackID>Keil.STM32F4xx_DFP.2.13.0</PackID>
-          <PackID>Keil.STM32F4xx_DFP.2.5.0</PackID>
           <PackURL>http://www.keil.com/pack</PackURL>
           <Cpu>IROM(0x08000000,0x100000) IRAM(0x20000000,0x20000) IRAM2(0x10000000,0x10000) CPUTYPE("Cortex-M4") FPU2 CLOCK(168000000) ELITTLE</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
@@ -327,20 +326,18 @@
             <uC99>1</uC99>
             <uGnu>0</uGnu>
             <useXO>0</useXO>
-            <v6Lang>1</v6Lang>
-            <v6LangP>1</v6LangP>
+            <v6Lang>0</v6Lang>
+            <v6LangP>0</v6LangP>
             <vShortEn>1</vShortEn>
             <vShortWch>1</vShortWch>
             <v6Lto>0</v6Lto>
             <v6WtE>0</v6WtE>
             <v6Rtti>0</v6Rtti>
-            <v6Lang>0</v6Lang>
-            <v6LangP>0</v6LangP>
             <VariousControls>
               <MiscControls></MiscControls>
               <Define>STM32F40_41xxx,USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>..\CORE;..\SYSTEM\delay;..\SYSTEM\sys;..\SYSTEM\usart;..\USER;..\FWLIB\inc;..\HEADER;..\PROTOCOL\ANO_DT</IncludePath>
+              <IncludePath>..\CORE;..\SYSTEM\delay;..\SYSTEM\sys;..\SYSTEM\usart;..\USER;..\FWLIB\inc;..\HEADER</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -704,6 +701,16 @@
               <FileType>5</FileType>
               <FilePath>..\HEADER\m3508_control.h</FilePath>
             </File>
+            <File>
+              <FileName>ANO_DT_User_Settings.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\HEADER\ANO_DT_User_Settings.h</FilePath>
+            </File>
+            <File>
+              <FileName>ANO_DT.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\HEADER\ANO_DT.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -758,9 +765,11 @@
               <FileName>m3508_control.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\PROTOCOL\m3508_control.c</FilePath>
+            </File>
+            <File>
               <FileName>ANO_DT.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\PROTOCOL\ANO_DT\ANO_DT.c</FilePath>
+              <FilePath>..\PROTOCOL\ANO_DT.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -796,11 +805,6 @@
               <FileName>readme.txt</FileName>
               <FileType>5</FileType>
               <FilePath>..\ACTUATOR_CONTRL\readme.txt</FilePath>
-            </File>
-            <File>
-              <FileName>m3508_control.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\m3508_control.c</FilePath>
             </File>
           </Files>
         </Group>

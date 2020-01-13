@@ -7,7 +7,7 @@ int print_flag=0;
 int motorAngle=0;
 void mission_temp(void)
 {	   
-        if(Read_KEY_1 == Bit_RESET)//����
+        if(Read_KEY_1 == Bit_RESET)//
 		{			
             M3508_Pos_Velo_Set(3,350,360*4.85*7);//�����350RPM�ٶȻ����ȣ�����ת4.85Ȧ
             Beep_ms(500);
