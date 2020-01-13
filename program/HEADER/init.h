@@ -26,7 +26,7 @@ void Usart_SendByte( USART_TypeDef * pUSARTx, uint8_t ch);	//任意串口发送�
 #define		USE_CAN_1		1		//0=禁用,1=使用
 #define		USE_CAN_2		1		//0=禁用,1=使用
 #define 	USE_USART_1		1		//0=禁用,1=使用
-#define 	USE_USART_2		0		//0=禁用,1=使用
+#define 	USE_USART_2		1		//0=禁用,1=使用
 #define 	USE_USART_3		0		//0=禁用,1=使用
 #define 	USE_UART_4		0		//0=禁用,1=使用
 #define 	USE_UART_5		0		//0=禁用,1=使用

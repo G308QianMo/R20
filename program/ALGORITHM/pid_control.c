@@ -63,7 +63,7 @@ void PID_Loop_angle(void)
 {
 	int32_t PID_Output_A;
 	
-	PID_Set_Value_X(Global_Target_Angle);
+	PID_Set_Value_Angle(Global_Target_Angle);
 	PID_Output_A = PID_Cal(&Global_PID_Parameter.PID_Angle,global_gyro_location.angle);
 	MOVE_As_Circle(PID_Output_A);
 	
