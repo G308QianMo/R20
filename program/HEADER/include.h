@@ -11,6 +11,8 @@
 #include "interrupt.h"
 #include <stdint.h>
 #include <string.h>
+#include <m3508_control.h>
+#include <mission.h>
 
 //zhaohaining
 #include "vect.h"
