@@ -7,8 +7,8 @@
 *@brief   中断初始化和管理
 **/
 
-
-
+extern int32_t Stop_flag;
+extern int32_t Global_Target_X,Global_Target_Y,Global_Target_Angle;
 
 /**
 *@function Interrupt_Enable
@@ -37,7 +37,14 @@ void CAN1_RX0_IRQHandler(void)
 	{
 		CAN_Receive(CAN1, CAN_FIFO0, &RxMessage);	//收数据，这里注意要选择FIFO
 		//*******************************中断服务函数开始******************************//
-
+		switch (RxMessage.StdId)
+		{
+			case 0x13:		             
+				Stop_flag = 1;
+			break;
+		}
+		LED3_ON;
+		
 		//*******************************中断服务函数结束******************************//
 	}
 }
@@ -79,7 +86,7 @@ void CAN2_RX1_IRQHandler(void)
  *@retval   none
 **/
 #if USE_USART_1
-#if USART1_RX_ENABLE
+#if EN_USART1_RX
 void USART1_IRQHandler(void)
 {
 	uint8_t ucTemp;
@@ -87,7 +94,7 @@ void USART1_IRQHandler(void)
 	{
 		ucTemp = USART_ReceiveData(USART1);
 		//*******************************中断服务函数开始******************************//
-
+		ANO_DT_Data_Receive_Prepare((uint8_t)ucTemp);
 		//*******************************中断服务函数结束******************************//
 	}
 }
@@ -103,7 +110,7 @@ void USART1_IRQHandler(void)
 **/
 #if USE_USART_2
 #if USART2_RX_ENABLE
-extern int32_t Stop_flag;
+
 void USART2_IRQHandler(void)
 {
 	uint8_t ucTemp;
@@ -111,10 +118,7 @@ void USART2_IRQHandler(void)
 	{
 		ucTemp = USART_ReceiveData(USART2);
 		//*******************************中断服务函数开始******************************//
-        if(ucTemp == 0x07)
-		{
-			Stop_flag = 1;
-		}
+		Data_Recieving(ucTemp);
 		//*******************************中断服务函数结束******************************// 
 	}
 }

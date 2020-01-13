@@ -26,7 +26,7 @@ void Usart_SendByte( USART_TypeDef * pUSARTx, uint8_t ch);	//任意串口发送�
 #define		USE_CAN_1		1		//0=禁用,1=使用
 #define		USE_CAN_2		1		//0=禁用,1=使用
 #define 	USE_USART_1		1		//0=禁用,1=使用
-#define 	USE_USART_2		0		//0=禁用,1=使用
+#define 	USE_USART_2		1		//0=禁用,1=使用
 #define 	USE_USART_3		0		//0=禁用,1=使用
 #define 	USE_UART_4		0		//0=禁用,1=使用
 #define 	USE_UART_5		0		//0=禁用,1=使用
@@ -65,8 +65,8 @@ void Usart_SendByte( USART_TypeDef * pUSARTx, uint8_t ch);	//任意串口发送�
 #if USE_BEEP
 
 //************************Beep************************//
-#define BEEP_ON  GPIO_SetBits(GPIOA, GPIO_Pin_7)	//打开蜂鸣器
-#define BEEP_OFF GPIO_ResetBits(GPIOA, GPIO_Pin_7)	//关闭蜂鸣器
+#define BEEP_ON  GPIO_SetBits(GPIOA, GPIO_Pin_4)	//打开蜂鸣器
+#define BEEP_OFF GPIO_ResetBits(GPIOA, GPIO_Pin_4)	//关闭蜂鸣器
 void Beep_ms(uint16_t ms); 	//蜂鸣器鸣叫ms
 #endif
 
