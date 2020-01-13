@@ -5,22 +5,22 @@ Rotor_Raw Rotor_Pos[8];
 s32 Current[8];
 int Limit[8]={15000,15000,15000,15000,15000,15000,15000,15000};
 u16 pos0[8];
-int16_t g_m3508CtrlFlag=0;//±Õ»··½Ê½Ñ¡Ôñ±êÖ¾Î»
+int16_t g_m3508CtrlFlag=0;//é—­ç¯æ–¹å¼é€‰æ‹©æ ‡å¿—ä½
 /**
 *@file    m3508_ctrl.c
 *@author  Pan
 *@version 1.0
 *@date    2020.1.10
-*@brief   3508µç»úÅäc620/610µçµ÷ÓÃcan1½øĞĞÍêÈ«±Õ»·¿ØÖÆ¼°ĞÅÏ¢½ÓÊÜ
+*@brief   3508ç”µæœºé…c620/610ç”µè°ƒç”¨can1è¿›è¡Œå®Œå…¨é—­ç¯æ§åˆ¶åŠä¿¡æ¯æ¥å—
 **/
 
 
 
-//can·¢ËÍÒ»×éÊı¾İ(¹Ì¶¨¸ñÊ½:IDÎª0X12,±ê×¼Ö¡,Êı¾İÖ¡)
-//len:Êı¾İ³¤¶È(×î´óÎª8)
-//msg:Êı¾İÖ¸Õë,×î´óÎª8¸ö×Ö½Ú.
-//·µ»ØÖµ:0,³É¹¦;
-//		 ÆäËû,Ê§°Ü;
+//canå‘é€ä¸€ç»„æ•°æ®(å›ºå®šæ ¼å¼:IDä¸º0X12,æ ‡å‡†å¸§,æ•°æ®å¸§)
+//len:æ•°æ®é•¿åº¦(æœ€å¤§ä¸º8)
+//msg:æ•°æ®æŒ‡é’ˆ,æœ€å¤§ä¸º8ä¸ªå­—èŠ‚.
+//è¿”å›å€¼:0,æˆåŠŸ;
+//		 å…¶ä»–,å¤±è´¥;
 
 u8 CAN1_Send_Msg(u8* msg, u32 TX_STD_ID)
 {
@@ -28,33 +28,33 @@ u8 CAN1_Send_Msg(u8* msg, u32 TX_STD_ID)
     u16 i = 0;
     CanTxMsg TxMessage;
 
-    TxMessage.StdId = TX_STD_ID;	 // ±ê×¼±êÊ¶·ûÎª0
-    TxMessage.IDE = CAN_ID_STD;    //±ê×¼Ö¡
-    TxMessage.RTR = CAN_RTR_DATA;  //Êı¾İÖ¡
-    TxMessage.DLC = 0x08;          //Ö¡³¤¶ÈÎª8
+    TxMessage.StdId = TX_STD_ID;	 // æ ‡å‡†æ ‡è¯†ç¬¦ä¸º0
+    TxMessage.IDE = CAN_ID_STD;    //æ ‡å‡†å¸§
+    TxMessage.RTR = CAN_RTR_DATA;  //æ•°æ®å¸§
+    TxMessage.DLC = 0x08;          //å¸§é•¿åº¦ä¸º8
 
     for(i = 0; i < 8; i++)
     {
-        TxMessage.Data[i] = msg[i];				 // µÚÒ»Ö¡ĞÅÏ¢
+        TxMessage.Data[i] = msg[i];				 // ç¬¬ä¸€å¸§ä¿¡æ¯
     }
     mbox = CAN_Transmit(CAN1, &TxMessage);
     i = 0;
-    while ((CAN_TransmitStatus(CAN1, mbox) == CAN_TxStatus_Failed) && (i < 0XFFF))i++;	//µÈ´ı·¢ËÍ½áÊø
+    while ((CAN_TransmitStatus(CAN1, mbox) == CAN_TxStatus_Failed) && (i < 0XFFF))i++;	//ç­‰å¾…å‘é€ç»“æŸ
     if(i >= 0XFFF)return 1;
     return 0;
 }
 
 
-//can¿Ú½ÓÊÕÊı¾İ²éÑ¯
-//buf:Êı¾İ»º´æÇø;
-//·µ»ØÖµ:0,ÎŞÊı¾İ±»ÊÕµ½;
-//		 ÆäËû,½ÓÊÕµÄÊı¾İ³¤¶È;
+//canå£æ¥æ”¶æ•°æ®æŸ¥è¯¢
+//buf:æ•°æ®ç¼“å­˜åŒº;
+//è¿”å›å€¼:0,æ— æ•°æ®è¢«æ”¶åˆ°;
+//		 å…¶ä»–,æ¥æ”¶çš„æ•°æ®é•¿åº¦;
 u8 CAN1_Receive_Msg(u8 *buf)
 {
     u32 i;
     CanRxMsg RxMessage;
-    if( CAN_MessagePending(CAN1, CAN_FIFO0) == 0)return 0;		//Ã»ÓĞ½ÓÊÕµ½Êı¾İ,Ö±½ÓÍË³ö
-    CAN_Receive(CAN1, CAN_FIFO0, &RxMessage);//¶ÁÈ¡Êı¾İ
+    if( CAN_MessagePending(CAN1, CAN_FIFO0) == 0)return 0;		//æ²¡æœ‰æ¥æ”¶åˆ°æ•°æ®,ç›´æ¥é€€å‡º
+    CAN_Receive(CAN1, CAN_FIFO0, &RxMessage);//è¯»å–æ•°æ®
     for(i = 0; i < RxMessage.DLC; i++)
         buf[i] = RxMessage.Data[i];
     return RxMessage.DLC;
@@ -67,7 +67,7 @@ u8 CAN1_Receive_Msg(u8 *buf)
 //		Pos_PID_Cal[0].PID.Derivative = 1;
 //}
 
-void m3508_control_cur0_3(int16_t cur0,int16_t cur1,int16_t cur2,int16_t cur3) //µçÁ÷Öµ·¶Î§Îª-16384~16384,µ¥Î»mA
+void m3508_control_cur0_3(int16_t cur0,int16_t cur1,int16_t cur2,int16_t cur3) //ç”µæµå€¼èŒƒå›´ä¸º-16384~16384,å•ä½mA
 {
 	uint32_t m3508_stdid = 0x000;	
     CanTxMsg Tx_message2;
@@ -90,7 +90,7 @@ void m3508_control_cur0_3(int16_t cur0,int16_t cur1,int16_t cur2,int16_t cur3) /
 }
 
 
-void m3508_control_cur4_7(int16_t cur4,int16_t cur5,int16_t cur6,int16_t cur7) //µçÁ÷Öµ·¶Î§Îª-16384~16384
+void m3508_control_cur4_7(int16_t cur4,int16_t cur5,int16_t cur6,int16_t cur7) //ç”µæµå€¼èŒƒå›´ä¸º-16384~16384
 {
 	uint32_t m3508_stdid = 0x000;	
     CanTxMsg Tx_message;
@@ -154,7 +154,7 @@ s32 PosPID_Cal(PID_Cal_para * p)
 		p->PrevError = p->Error;
     p->dError = p->PrevError - p->LastError;
     p->LastError = p->PrevError;
-    if(p->Error<10&&p->Error>-10)   //ËÀÇø
+    if(p->Error<10&&p->Error>-10)   //æ­»åŒº
     {
         p->Error=0;
         p->dError=0;
@@ -185,7 +185,7 @@ double VeloPID_Cal(PID_Cal_para * p)
 		p->PrevError = p->Error;
     p->dError = p->PrevError - p->LastError;
     p->LastError = p->PrevError;
-    if(p->Error<10&&p->Error>-10)   //ËÀÇø
+    if(p->Error<10&&p->Error>-10)   //æ­»åŒº
     {
         p->Error=0;
         p->dError=0;
@@ -220,10 +220,10 @@ s32 Current_Limit(double a,int limit)
 
 
 
-void M3508_Pos_Control(int i)//µÚi£¨1~8£©¸öµç»úËÙ¶ÈÎ»ÖÃË«»·,positionÎª³öÖá½Ç¶È
+void M3508_Pos_Control(int i)//ç¬¬iï¼ˆ1~8ï¼‰ä¸ªç”µæœºé€Ÿåº¦ä½ç½®åŒç¯,positionä¸ºå‡ºè½´è§’åº¦
 {
 	Pos_PID_Cal[i-1].NextPoint = Rotor_Read_Now[i-1].Pos;
-	if(1)//ÏŞÎ»Ìõ¼ş£¬Ä¿Ç°È±Ê¡
+	if(1)//é™ä½æ¡ä»¶ï¼Œç›®å‰ç¼ºçœ
     {
         Pos_PID_Cal[i-1].SetPoint = Pos_PID_Cal[i-1].mySetPoint;
     }		
@@ -235,20 +235,20 @@ void M3508_Pos_Control(int i)//µÚi£¨1~8£©¸öµç»úËÙ¶ÈÎ»ÖÃË«»·,positionÎª³öÖá½Ç¶È
     Current[i-1] = Current_Limit(Current[i-1],Limit[i-1]);
 }
 
-void M3508_Vel_Control(int i)//µÚi£¨1~8£©¸öµç»úËÙ¶È»·
+void M3508_Vel_Control(int i)//ç¬¬iï¼ˆ1~8ï¼‰ä¸ªç”µæœºé€Ÿåº¦ç¯
 {    
     Velo_PID_Cal[i-1].NextPoint = Rotor_Read_Now[i-1].Speed;			
-    if(1)//ÏŞËÙÌõ¼ş£¬Ä¿Ç°È±Ê¡
+    if(1)//é™é€Ÿæ¡ä»¶ï¼Œç›®å‰ç¼ºçœ
     {
         Velo_PID_Cal[i-1].SetPoint = Velo_PID_Cal[i-1].mySetPoint;
     }
 	  Current[i-1] = VeloPID_Cal(&Velo_PID_Cal[i-1]);			
     Current[i-1] = Current_Limit(Current[i-1],Limit[i-1]);
 }
-void M3508_Pos_Velo_Control(int i)//µÚi£¨1~8£©¸öµç»úËÙ¶ÈÎ»ÖÃ²¢»·
+void M3508_Pos_Velo_Control(int i)//ç¬¬iï¼ˆ1~8ï¼‰ä¸ªç”µæœºé€Ÿåº¦ä½ç½®å¹¶ç¯
 {		
 	Pos_PID_Cal[i-1].NextPoint = Rotor_Read_Now[i-1].Pos;
-    if(1)//ÏŞÎ»Ìõ¼ş£¬Ä¿Ç°È±Ê¡
+    if(1)//é™ä½æ¡ä»¶ï¼Œç›®å‰ç¼ºçœ
     {
         Pos_PID_Cal[i-1].SetPoint = Pos_PID_Cal[i-1].mySetPoint;
     }			
