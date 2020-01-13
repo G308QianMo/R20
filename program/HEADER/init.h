@@ -33,7 +33,7 @@ void Usart_SendByte( USART_TypeDef * pUSARTx, uint8_t ch);	//任意串口发送�
 #define 	USE_USART_6		0		//0=禁用,1=使用
 #define		USE_TIM_1		2		//0=禁用,1=定时器中断，2=编码器
 #define		USE_TIM_2		2		//0=禁用,1=定时器中断，2=编码器
-#define		USE_TIM_3		0		//0=禁用,1=定时器中断，2=编码器
+#define		USE_TIM_3		1		//0=禁用,1=定时器中断，2=编码器
 #define		USE_TIM_4		0		//0=禁用,1=定时器中断，2=pwm输出
 #define		USE_TIM_5		0		//0=禁用,1=定时器中断，2=编码器
 #define		USE_TIM_6		0		//0=禁用,1=定时器中断

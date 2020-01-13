@@ -329,7 +329,29 @@ void  TIM3_IRQHandler(void)
 	if (TIM_GetITStatus(TIM3, TIM_IT_Update) != RESET)
 	{
 		//*******************************中断服务函数开始******************************//
-
+     if(g_m3508CtrlFlag == 3)
+        {
+            for(int id=0;id<8;id++)
+            {
+                M3508_Pos_Velo_Control(id);                 
+            }                  
+        }
+        else if(g_m3508CtrlFlag == 1)
+        {
+            for(int id=0;id<8;id++)
+            {
+                M3508_Pos_Control(id);
+            }
+        }
+        else if(g_m3508CtrlFlag == 2)
+        {
+            for(int id=0;id<8;id++)
+            {
+                M3508_Vel_Control(id);                
+            } 
+        }
+        m3508_control_cur0_3(Current[0],Current[1],Current[2],Current[3]);
+        m3508_control_cur4_7(Current[4],Current[5],Current[6],Current[7]);
 		//*******************************中断服务函数结束******************************//
 		TIM_ClearITPendingBit(TIM3, TIM_IT_Update);
 	}
