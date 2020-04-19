@@ -40,21 +40,17 @@ void GYRO_Get_Location_Param(void)
 			}
 			else if (RxMessage.DLC == 8)	//
 			{
-				//										temp.u8_form[0] = RxMessage.Data[0];
-				//										temp.u8_form[1] = RxMessage.Data[1];
-				//										temp.u8_form[2] = RxMessage.Data[2];
-				//										temp.u8_form[3] = RxMessage.Data[3];
-				//										memcpy((void *)&GYRO_pulse_x, &temp.s32_form, 4);
+				//temp.u8_form[0] = RxMessage.Data[0];
+				//temp.u8_form[1] = RxMessage.Data[1];
+				//temp.u8_form[2] = RxMessage.Data[2];
+				//temp.u8_form[3] = RxMessage.Data[3];
+				//memcpy((void *)&GYRO_pulse_x, &temp.s32_form, 4);
 
-				//										temp.u8_form[0] = RxMessage.Data[4];
-				//										temp.u8_form[1] = RxMessage.Data[5];
-				//										temp.u8_form[2] = RxMessage.Data[6];
-				//										temp.u8_form[3] = RxMessage.Data[7];
-				//										memcpy((void *)&GYRO_pulse_y, &temp.s32_form, 4);
-
-
-
-
+				//temp.u8_form[0] = RxMessage.Data[4];
+				//temp.u8_form[1] = RxMessage.Data[5];
+				//temp.u8_form[2] = RxMessage.Data[6];
+				//temp.u8_form[3] = RxMessage.Data[7];
+				//memcpy((void *)&GYRO_pulse_y, &temp.s32_form, 4);
 				global_gyro_pulse_y = TIM1->CNT;
 				global_enc_dy = global_gyro_pulse_y - 30000;
 				global_gyro_pulse_x = TIM2->CNT;

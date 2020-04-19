@@ -1,5 +1,6 @@
 #ifndef __PID_PARAMETER_H
 #define __PID_PARAMETER_H
+#include <stdint.h>
 
 typedef struct
 {
